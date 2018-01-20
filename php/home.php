@@ -4,7 +4,16 @@
         <link rel="stylesheet" href="../css/style.css">
         
     </head>
+    
+    <?php
+		//session_start();
+		include "databaseConnection.php";
+        $dbConn = getDatabaseConnection();
+        
+        $arrivals = getNewArrivals();
+	?>
     <body>
+        
         <div id="cointer">
             
             <!-- Image div -->
@@ -45,52 +54,26 @@
                 <div class="displayHorizontal">
                     
                     <!-- inner product container -->
-                    <div class = "innerContainer">
-                        <div>
-                            <img class="productImage" src="https://square-production.s3.amazonaws.com/files/3e199fc39a96aaf2193d8c77e64fc450508feb6f/original.jpeg">
-                        </div>
-                        
-                        <div class = "displayVertical">
-                            <div class = "nameOfProduct">Red Fade Bandana</div>
-                            <button>$35</button>
-                        </div>
-                    </div>
                     
-                    <!-- inner product container -->
-                    <div class = "innerContainer">
-                        <div>
-                            <img class="productImage" src="https://square-production.s3.amazonaws.com/files/3e199fc39a96aaf2193d8c77e64fc450508feb6f/original.jpeg">
-                        </div>
+                    <?php
+   
+                        for($i = 0; $i < count($arrivals); $i++)
+                        {
+                            echo "<div class = \"innerContainer\">
+                                <div>
+                                    <img class=\"productImage\" src=\"". $arrivals[$i]["picture"]."\">
+                                </div>
+                                
+                                <div class = \"displayVertical\">
+                                    <div class = \"nameOfProduct\">". $arrivals[$i]["name"]."</div>
+                                    <button>".$arrivals[$i]["price"]."</button>
+                                </div>
+                              
+                              <!-- end of inner product container -->
+                            </div>";
+                        }
                         
-                        <div class = "displayVertical">
-                            <div class = "nameOfProduct">Red Fade Bandana</div>
-                            <button>$35</button>
-                        </div>
-                    </div>
-                    
-                    <!-- inner product container -->
-                    <div class = "innerContainer">
-                        <div>
-                            <img class="productImage" src="https://square-production.s3.amazonaws.com/files/3e199fc39a96aaf2193d8c77e64fc450508feb6f/original.jpeg">
-                        </div>
-                        
-                        <div class = "displayVertical">
-                            <div class = "nameOfProduct">Red Fade Bandana</div>
-                            <button>$35</button>
-                        </div>
-                    </div>
-                    
-                    <!-- inner product container -->
-                    <div class = "innerContainer">
-                        <div>
-                            <img class="productImage" src="https://square-production.s3.amazonaws.com/files/3e199fc39a96aaf2193d8c77e64fc450508feb6f/original.jpeg">
-                        </div>
-                        
-                        <div class = "displayVertical">
-                            <div class = "nameOfProduct">Red Fade Bandana</div>
-                            <button>$35</button>
-                        </div>
-                    </div>
+                    ?>
                     
                 </div>
             </div>
@@ -98,23 +81,31 @@
         <!-- End of div container -->
         </div>
         
-        <script>
-            var slideIndex = 0;
-            showSlides();
-            
-            function showSlides() {
-                var i;
-                var slides = document.getElementsByClassName("mySlides");
-                for (i = 0; i < slides.length; i++) {
-                   slides[i].style.display = "none";  
-                }
-                slideIndex++;
-                
-                if (slideIndex > slides.length) {slideIndex = 1;}    
-                
-                slides[slideIndex-1].style.display = "block";  
-                setTimeout(showSlides, 4000); // Change image every 4 seconds
-            }
-        </script>
+        <script src="../js/javascript.js" type="text/javascript"></script>
     </body>
 </html>
+
+<?php
+
+	function getNewArrivals()
+	{
+		///echo"inside validate user function";
+		global $dbConn;
+		    
+		$query = "select * from Products";
+	  
+		$statement = $dbConn->prepare($query);
+		
+		 $statement->execute();  
+		 
+		$i = 0;
+		$array;
+		while($row = $statement -> fetch())
+			{
+			    $array[$i] = array("name" => $row["name"], "picture"=> $row["picture"], "quantity"=>$row["quantity"],"price"=>$row["price"]);
+			    $i++;
+			}
+		return $array;
+	}
+
+?>

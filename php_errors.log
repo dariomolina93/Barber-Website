@@ -1,0 +1,33 @@
+[20-Jan-2018 08:15:48 UTC] PHP Warning:  include(databaseConnection.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/php/home.php on line 10
+[20-Jan-2018 08:15:48 UTC] PHP Stack trace:
+[20-Jan-2018 08:15:48 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/home.php:0
+[20-Jan-2018 08:15:48 UTC] PHP Warning:  include(): Failed opening 'databaseConnection.php' for inclusion (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/php/home.php on line 10
+[20-Jan-2018 08:15:48 UTC] PHP Stack trace:
+[20-Jan-2018 08:15:48 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/home.php:0
+[20-Jan-2018 08:15:48 UTC] PHP Fatal error:  Call to undefined function getDatabaseConnection() in /home/ubuntu/workspace/php/home.php on line 11
+[20-Jan-2018 08:15:48 UTC] PHP Stack trace:
+[20-Jan-2018 08:15:48 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/home.php:0
+[20-Jan-2018 08:16:12 UTC] PHP Warning:  include(databaseConnection.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/php/home.php on line 10
+[20-Jan-2018 08:16:12 UTC] PHP Stack trace:
+[20-Jan-2018 08:16:12 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/home.php:0
+[20-Jan-2018 08:16:12 UTC] PHP Warning:  include(): Failed opening 'databaseConnection.php' for inclusion (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/php/home.php on line 10
+[20-Jan-2018 08:16:12 UTC] PHP Stack trace:
+[20-Jan-2018 08:16:12 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/home.php:0
+[20-Jan-2018 08:16:12 UTC] PHP Fatal error:  Call to undefined function getDatabaseConnection() in /home/ubuntu/workspace/php/home.php on line 11
+[20-Jan-2018 08:16:12 UTC] PHP Stack trace:
+[20-Jan-2018 08:16:12 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/home.php:0
+[20-Jan-2018 08:16:14 UTC] PHP Warning:  include(databaseConnection.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/php/home.php on line 10
+[20-Jan-2018 08:16:15 UTC] PHP Stack trace:
+[20-Jan-2018 08:16:15 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/home.php:0
+[20-Jan-2018 08:16:15 UTC] PHP Warning:  include(): Failed opening 'databaseConnection.php' for inclusion (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/php/home.php on line 10
+[20-Jan-2018 08:16:15 UTC] PHP Stack trace:
+[20-Jan-2018 08:16:15 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/home.php:0
+[20-Jan-2018 08:16:15 UTC] PHP Fatal error:  Call to undefined function getDatabaseConnection() in /home/ubuntu/workspace/php/home.php on line 11
+[20-Jan-2018 08:16:15 UTC] PHP Stack trace:
+[20-Jan-2018 08:16:15 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/home.php:0
+[20-Jan-2018 08:16:53 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [1045] Access denied for user 'trendmetric'@'localhost' (using password: YES)' in /home/ubuntu/workspace/php/databaseConnection.php:12
+Stack trace:
+#0 /home/ubuntu/workspace/php/databaseConnection.php(12): PDO->__construct('mysql:host=loca...', 'trendmetric', 'guest')
+#1 /home/ubuntu/workspace/php/home.php(11): getDatabaseConnection()
+#2 {main}
+  thrown in /home/ubuntu/workspace/php/databaseConnection.php on line 12
