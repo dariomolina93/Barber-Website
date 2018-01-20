@@ -9,19 +9,20 @@
             
             <!-- Image div -->
             <div id="imageLogo">
-                <img src="../images/barberLogo.jpg" alt="Logo" height="300" width="600">
+                <img src="../images/barberLogo.jpg" alt="Logo" height="250" width="700">
             </div>
             
-            <!-- Slideshow -->
+            <!-- Menu -->
             <div id="categories">
                 <ul>
-                    <li><a href="./home.php">Home</a></li>
+                    <li><a id="pic1" href="./home.php">Home</a></li>
                     <li><a href="./shop.php">Shop</a></li>
                     <li><a href="./shop.php">About</a></li>
                     <li><a href="./shop.php">Contact</a></li>
                 </ul>
             </div>
             
+            <!-- Slideshow -->
             <div class="slideshow-container">
                     <div class="mySlides fade">
                       <img class = "slideImage" src="../images/pic4.jpg" style="width:100%" alt="image not found">
@@ -34,6 +35,42 @@
                     <div class="mySlides fade">
                       <img class = "slideImage" src="../images/pic3.jpg" style="width:100%" alt="image not found">
                     </div>
+            </div>
+            
+            <!-- New Arrivals -->
+            <div id="newArrivals">
+                <h2>New Arrivals</h2>
+                
+                <!-- main container -->
+                <div class="displayHorizontal">
+                    
+                    <!-- inner product container -->
+                    <div class = "innerContainer">
+                        <div>
+                            <img class="productImage" src="https://square-production.s3.amazonaws.com/files/3e199fc39a96aaf2193d8c77e64fc450508feb6f/original.jpeg">
+                        </div>
+                        
+                        <div class = "displayVertical">
+                            <div>Red Fade Bandana</div>
+                            <button>$35</button>
+                        </div>
+                        
+                    </div>
+                    
+                    <!-- inner product container -->
+                    <div class = "innerContainer">
+                        <div>
+                            <img class="productImage" src="https://square-production.s3.amazonaws.com/files/3e199fc39a96aaf2193d8c77e64fc450508feb6f/original.jpeg">
+                        </div>
+                        
+                        <div class = "displayVertical">
+                            <div>Red Fade Bandana</div>
+                            <button>$35</button>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
             </div>
             
         
