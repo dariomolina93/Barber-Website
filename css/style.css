@@ -125,6 +125,17 @@ a{
   margin-bottom: 10px;
 }
 
+.nameTitle{
+  
+  margin-top: 25px; 
+  text-align: center;
+  font-size: 1.875em;
+  font-family: 'Khula', sans-serif;
+  
+  color: #262626;
+  letter-spacing: .02778em;
+}
+
 .displayHorizontal{
   display: flex;
   text-align: center;

@@ -13,7 +13,6 @@
         $arrivals = getNewArrivals();
 	?>
     <body>
-        
         <div id="cointer">
             
             <!-- Image div -->
@@ -66,7 +65,7 @@
                                 
                                 <div class = \"displayVertical\">
                                     <div class = \"nameOfProduct\">". $arrivals[$i]["name"]."</div>
-                                    <button id='button".$i."' onclick=\"displayModal('button".$i."')\">".$arrivals[$i]["price"]."</button>
+                                    <button  type=\"button\" id='button".$i."' onclick=\"displayModal('button".$i."');\">".$arrivals[$i]["price"]."</button>
                                 </div>
                               
                               <!-- end of inner product container -->
@@ -83,13 +82,14 @@
                               <div style=\"display: flex;\" class=\"modal-content\">
                                     
                                     <!-- Left side (description) -->
-                                    <div>
-                                        <h2>".$arrivals[$i]["name"]."</h2>
+                                    <div style='width:50%;'>
+                                        <h2 class = 'nameTitle'>".$arrivals[$i]["name"]."</h2>
                                     
+                                        <div>$".$arrivals[$i]['price']."</div>
                                     </div>
                                     
                                     <!-- Image -->
-                                    <div>
+                                    <div style='width:50%;'>
                                         <img class=\"productImage\" src=\"".$arrivals[$i]["picture"]."\">
                                     
                                     </div>
@@ -113,76 +113,47 @@
         
         <script src="../js/javascript.js" type="text/javascript"></script>
         
-        <script type="text/javascript">
-        
-        document.addEventListener("DOMContentLoaded", function(event) { 
- 
-                        /*
-                // Get the modal
-                var modal = document.getElementById(modals);
-                        
-                // Get the button that opens the modal
-                var btn = document.getElementById(buttons);
-                */
-                
+        <script>
                 var modals = [];
                 var buttons = [];
                 
+                function displayModal(buttonId)
+                {
+                    
+                    var i;
+                    
+                    for(i = 0; i < 4; i++)
+                    {
+                        if(buttons[i].id === buttonId)
+                        {
+                            modals[i].style.display = "block";
+                        }
+                    }
+                };
+
+
+        document.addEventListener("DOMContentLoaded", function(event) { 
+ 
+            
                 var i;
                 
                 for(i = 0; i< 4; i++)
                 {
                     modals[i] = document.getElementById("modal"+i)
-                    buttons[i] = document.getElementById("button"+i)
-                    
-                    console.log("modals[i]=" +modals[i])
-                    console.log("buttons[i]=" +buttons[i])
-                    
+                    buttons[i] = document.getElementById("button"+i)//.addEventListener ("click", displayModal("button"+i), false);
                 }
                 
-                console.log("after first for loop")
-                console.log("i= " + i)
-                console.log("modals[i]=" +modals[i])
-                console.log("modals[i]=" +modals[3])
-                console.log("buttons[i]=" +buttons[3])
-    
-                        
-                
-                /*
-                // Get the <span> element that closes the modal
-                var span = document.getElementsByClassName("close")[0];
-                
-                span.onclick = function() 
-                {
-                modal.style.display = "none";
-                }
-                */ 
+            console.log("buttons[0]=" +buttons[0])
                 
                 
-                for(i= 0; i< 4; i++)
-                {
-                    console.log("Inside second for loop")   
-                    console.log("i= " + i)
-                    console.log("modals[i]=" +modals[i])
-                    
-                    buttons[i].onclick = function()
-                    {
-                        console.log("modals[i]=" +modals[i])
-                        console.log("buttons[i]=" +buttons[i])
-                        console.log("i= " + i)
-                        modals[i].style.display = "block";
-                    }
-                }
-                
-                
-                 /*       
+                 /*
                 // When the user clicks the button, open the modal 
                 btn.onclick = function()
                 {
                 modal.style.display = "block";
                 }
                 */
-                        
+                
                 // When the user clicks anywhere outside of the modal, close it
                 window.onclick = function(event)
                 {
@@ -197,23 +168,9 @@
             
         });
         
-        /*
-                        
-                function displayModal(buttonId)
-                {
-                    var i;
-                    
-                    for(i = 0; i < 4; i++)
-                    {
-                        if(buttons[i].id === buttonId)
-                        {
-                            modals[i].style.display = "block";
-                        }
-                    }
-                }
-        */
             
 </script>
+        
     </body>
 </html>
 
