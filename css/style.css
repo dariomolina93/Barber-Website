@@ -1,5 +1,11 @@
 #imageLogo{
     text-align: center;
+    width: 100%;
+    padding-left: 50px;
+}
+
+#categories{
+  margin-top:5px;
 }
 
 
@@ -12,6 +18,14 @@ ul li a {
     display: block;
     padding: 0 10px;
     letter-spacing: 1px;
+}
+
+.book{
+  font-family: 'Century Gothic', Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: white;
+    display: block;
 }
 
 button{
@@ -130,10 +144,19 @@ a{
   margin-top: 25px; 
   text-align: center;
   font-size: 1.875em;
-  font-family: 'Khula', sans-serif;
+  font-family: 'Century Gothic', Helvetica, Arial, sans-serif;
+  
   
   color: #262626;
   letter-spacing: .02778em;
+}
+
+#quantity{
+  width: 10px;
+}
+
+.price{
+  margin-top:10px;
 }
 
 .displayHorizontal{

@@ -6,7 +6,7 @@
     </head>
     
     <?php
-		//session_start();
+		session_start();
 		include "databaseConnection.php";
         $dbConn = getDatabaseConnection();
         
@@ -16,13 +16,25 @@
         <div id="cointer">
             
             <!-- Image div -->
-            <div id="imageLogo">
-                <img src="../images/barberLogo.jpg" alt="Logo" height="250" width="700">
+            <div style='display:flex;'>
+                
+                <div id="imageLogo">
+                    <img src="../images/barberLogo.jpg" alt="Logo" height="250" width="700">
+                </div>
+                
+                <div style= "text-align:right;">
+                    
+                    <a href="[full link to your Facebook page]">
+                        <img title="checkout" alt="checkout" src="http://cdn.mysitemyway.com/icons-watermarks/flat-circle-white-on-black/bfa/bfa_shopping-cart/bfa_shopping-cart_flat-circle-white-on-black_512x512.png" width="80" height="80" />
+                        </a>
+                   
+                </div>
+                
             </div>
             
             <!-- Menu -->
             <div id="categories">
-                <ul>
+                <ul style="margin-top: 5px;">
                     <li><a id="pic1" href="./home.php">Home</a></li>
                     <li><a href="./shop.php">Shop</a></li>
                     <li><a href="./shop.php">About</a></li>
@@ -85,7 +97,16 @@
                                     <div style='width:50%;'>
                                         <h2 class = 'nameTitle'>".$arrivals[$i]["name"]."</h2>
                                     
-                                        <div>$".$arrivals[$i]['price']."</div>
+                                        <div class='price'>$".$arrivals[$i]['price']."</div>
+                                        
+                                        <form method='POST' action='cart.php'>
+                                            <div class = 'displayHorizontal'>
+                                                <div>Quantity</div>
+                                                <input id = 'quantity' onkeypress='return isNumberKey(event)' type='text' name='quantity' value='1'>
+                                            </div>
+                                            
+                                            <input type='submit' value='Add to Cart'>
+                                        </form>
                                     </div>
                                     
                                     <!-- Image -->
@@ -108,8 +129,46 @@
                 </div>
             </div>
             
+            <hr style='margin-top: 100px;'>
+                
+                <div style="display: flex;">
+                    <div style="text-align:center;">
+                        <a target="_blank" class = "book" href="https://shops.getsquire.com/book/the-barbers-inc-south-san-jose-san-jose/barber/gomez-the-barber">
+                            <img src="http://barrellibarber.com/wp-content/uploads/2017/08/Barrelli_MakeAppointmentIcon4.png" alt="not found" width="400"></a>
+                    </div>
+                    
+                    <div style="border-left:2px solid white;height:170px; margin-left:5px;"></div>
+                    
+                    <div style="margin: auto;">
+                        <a class="book">Check out our Inventory!</a>
+                    </div>
+                    
+                    <div style="border-left:2px solid white;height:170px; margin-left:5px;"></div>
+                    
+                    <div style="margin: auto;">
+                        <a target="_blank" href="[full link to your Twitter]">
+                        <img title="Twitter" alt="Twitter" src="https://socialmediawidgets.files.wordpress.com/2014/03/01_twitter.png" width="35" height="35" />
+                        </a>
+                        <a target="_blank" href="[full link to your youtube page]">
+                        <img title="Youtube" alt="Youtube" src="https://socialmediawidgets.files.wordpress.com/2014/03/youtube.png" width="35" height="35" />
+                        </a>
+                        
+                        <a target="_blank" href="[full link to your Instagram]">
+                        <img title="Instagram" alt="RSS" src="https://socialmediawidgets.files.wordpress.com/2014/03/10_instagram.png" width="35" height="35" />
+                        </a>
+                        
+                        <a target="_blank" href="[full link to your Facebook page]">
+                        <img title="Facebook" alt="Facebook" src="https://socialmediawidgets.files.wordpress.com/2014/03/facebook.png" width="35" height="35" />
+                        </a>
+                
+                    
+                </div>
+                    
+                </div>
+            
         <!-- End of div container -->
         </div>
+        
         
         <script src="../js/javascript.js" type="text/javascript"></script>
         
@@ -130,6 +189,15 @@
                         }
                     }
                 };
+                
+                function isNumberKey(evt)
+      {
+         var charCode = (evt.which) ? evt.which : event.keyCode
+         if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+         return true;
+      }
 
 
         document.addEventListener("DOMContentLoaded", function(event) { 
