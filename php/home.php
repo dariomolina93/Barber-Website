@@ -25,7 +25,7 @@
                 <div style= "text-align:right;">
                     
                     <a href="[full link to your Facebook page]">
-                        <img title="checkout" alt="checkout" src="http://cdn.mysitemyway.com/icons-watermarks/flat-circle-white-on-black/bfa/bfa_shopping-cart/bfa_shopping-cart_flat-circle-white-on-black_512x512.png" width="80" height="80" />
+                        <img style="padding-right: 40px;" title="checkout" alt="checkout" src="http://cdn.mysitemyway.com/icons-watermarks/flat-circle-white-on-black/bfa/bfa_shopping-cart/bfa_shopping-cart_flat-circle-white-on-black_512x512.png" width="80" height="80" />
                         </a>
                    
                 </div>
@@ -59,7 +59,7 @@
             
             <!-- New Arrivals -->
             <div id="newArrivals">
-                <h2>New Arrivals</h2>
+                <h2 style="margin-top: 90px;">New Arrivals</h2>
                 
                 <!-- main container -->
                 <div class="displayHorizontal">
@@ -129,6 +129,25 @@
                 </div>
             </div>
             
+            <h2>Upcoming Participating Events</h2>
+            <div style="display: flex;">
+                <div style="width:50%;">
+                    <a target="_blank" href="http://www.thelifestyleexpo.com/">
+                        <img style="max-width: 100%" height="400" src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F37983648%2F61837105785%2F1%2Foriginal.jpg?w=1000&rect=0%2C734%2C3000%2C1500&s=7bc9f43680f7493e03467a151ec4eccf">
+                    </a>
+                </div>
+                
+                <div style="width:50%;">
+                    <a target="_blank" href="http://hairbattletour.com/">
+                        <img style="max-width: 100%"  height="400"  src="http://hairbattletour.com/cms/wp-content/uploads/hbt-logo-lq.png">
+                    </a>
+                </div>
+                
+                
+                
+                
+            </div>
+            
             <hr style='margin-top: 100px;'>
                 
                 <div style="display: flex;">
@@ -153,11 +172,11 @@
                         <img title="Youtube" alt="Youtube" src="https://socialmediawidgets.files.wordpress.com/2014/03/youtube.png" width="35" height="35" />
                         </a>
                         
-                        <a target="_blank" href="[full link to your Instagram]">
+                        <a target="_blank" href="https://www.instagram.com/gomez_the_barber/">
                         <img title="Instagram" alt="RSS" src="https://socialmediawidgets.files.wordpress.com/2014/03/10_instagram.png" width="35" height="35" />
                         </a>
                         
-                        <a target="_blank" href="[full link to your Facebook page]">
+                        <a target="_blank" href="https://www.facebook.com/alex.gomez.98">
                         <img title="Facebook" alt="Facebook" src="https://socialmediawidgets.files.wordpress.com/2014/03/facebook.png" width="35" height="35" />
                         </a>
                 

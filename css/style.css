@@ -1,7 +1,7 @@
 #imageLogo{
     text-align: center;
     width: 100%;
-    padding-left: 50px;
+    padding-left: 70px;
 }
 
 #categories{
@@ -112,6 +112,19 @@ a{
   display: inline-block;
 }
 
+.shop-categories{
+  color: white;
+  font-size: 20px;
+  font-family: 'Century Gothic', Helvetica, Arial, sans-serif;
+  text-align: center;
+  border:1px solid red;
+  text-transform: uppercase;
+  height: 35px;
+  padding-top: 15px;
+ 
+  
+}
+
 .innerContainer{
       font-weight: 400;
     border-radius: 5px;
@@ -176,7 +189,7 @@ body{
 }
 
 .mySlides {display: none;}
-.slideImage{vertical-align: middle; height:500px; width: 850px !important; }
+.slideImage{vertical-align: middle; height:500px; width: 750px !important; }
 
 /* Slideshow container */
 .slideshow-container {
