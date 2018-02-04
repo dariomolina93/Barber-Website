@@ -28,6 +28,22 @@ ul li a {
     display: block;
 }
 
+.shop-categories{
+  color: white;
+  font-size: 15px;
+  font-family: 'Century Gothic', Helvetica, Arial, sans-serif;
+  text-align: center;
+  border:1px solid #060606;
+  text-transform: uppercase;
+  height:40px;
+  padding-top:20px;
+  margin-bottom: 0px;
+  width:70%;
+  background-color: #262626;
+  color: white;
+
+}
+
 button{
     width: 55px;
     height: 35px;
@@ -112,18 +128,6 @@ a{
   display: inline-block;
 }
 
-.shop-categories{
-  color: white;
-  font-size: 20px;
-  font-family: 'Century Gothic', Helvetica, Arial, sans-serif;
-  text-align: center;
-  border:1px solid red;
-  text-transform: uppercase;
-  height: 35px;
-  padding-top: 15px;
- 
-  
-}
 
 .innerContainer{
       font-weight: 400;
