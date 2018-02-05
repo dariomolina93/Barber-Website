@@ -55,12 +55,12 @@
                     <?php displayCategories(); ?>
                 </div>
                 
-                <div style="width: 75%;">
+                <div id = 'rightSide' style="width: 75%;">
                     <?php
    
                         for($i = 0; $i < count($arrivals); $i++)
                         {
-                            echo"<div style='display: flex;'>";
+                            echo"<div class='loopDiv' style='display: flex; margin-bottom: 20px;'>";
                             
                             for($j =0; $j < 4; $j++)
                             {
@@ -128,6 +128,31 @@
                 
                 
             </div>
+            
+            
+            <footer style="background-color: #222222;">
+                <div style="display: flex;">
+                    
+                    
+                    <div style="margin: auto;">
+                        <a target="_blank" href="[full link to your Twitter]">
+                        <img title="Twitter" alt="Twitter" src="https://socialmediawidgets.files.wordpress.com/2014/03/01_twitter.png" width="30" height="30" />
+                        </a>
+                        <a target="_blank" href="[full link to your youtube page]">
+                        <img title="Youtube" alt="Youtube" src="https://socialmediawidgets.files.wordpress.com/2014/03/youtube.png" width="30" height="30" />
+                        </a>
+                        
+                        <a target="_blank" href="https://www.instagram.com/gomez_the_barber/">
+                        <img title="Instagram" alt="RSS" src="https://socialmediawidgets.files.wordpress.com/2014/03/10_instagram.png" width="30" height="30" />
+                        </a>
+                        
+                        <a target="_blank" href="https://www.facebook.com/alex.gomez.98">
+                        <img title="Facebook" alt="Facebook" src="https://socialmediawidgets.files.wordpress.com/2014/03/facebook.png" width="30" height="30" />
+                        </a>
+                
+                    
+                </div>
+            </footer>
         </div>
         
         <script>
@@ -212,6 +237,110 @@
               dataType: "json",
               success: function(data) {
                 console.log( data);
+                console.log("length of items: "+Object.keys(data).length);
+                
+                
+                $( ".loopDiv" ).remove();
+                console.log("after remove")
+                
+                 //$("<div class='loopDiv' style='display: flex; margin-bottom: 20px;'>helloworld</div>" ).appendTo("#rightSide" );
+                if(Object.keys(data).length > 4)
+                {
+                    console.log("inside if statement")
+                     for(var i = 0; i < Object.keys(data).length; i++)
+                        {
+                            console.log("Inside for loop i")
+                            $( "<div class='loopDiv' style='display: flex; margin-bottom: 20px;'></div>" ).appendTo( "#rightSide" );
+                            
+                            
+                            for(var j = 0; j < 4; j++)
+                            {
+                                console.log("inside for loop j")
+                                $("<div class = \"innerContainer\"></div>").appendTo( ".loopDiv" )
+                                $("<div class='imageDiv'></div>").appendTo(".innerContainer")
+                                $("<img class=\"productImage\" src=\"" + data[i]["picture"] + "\">").appendTo(".imageDiv")
+                                i++
+                            }
+                            i--
+                            
+                            // "<div class = \"innerContainer\">
+                            //             <div>
+                            //                 <img class=\"productImage\" src=\"". $arrivals[$i]["picture"]."\">
+                            //             </div>
+                                        
+                            //             <div class = \"displayVertical\">
+                            //                 <div class = \"nameOfProduct\">". $arrivals[$i]["name"]."</div>
+                            //                 <button  type=\"button\" id='button".$i."' onclick=\"displayModal('button".$i."');\">".$arrivals[$i]["price"]."</button>
+                            //             </div>
+                                      
+                            //           <!-- end of inner product container -->
+                            // </div>";
+                            
+                            
+                           // $("<div id=\"modal".$i."\" class=\"modal\"></div>").appendTo(".rightSide")
+                            
+                            
+                        }
+                }
+                
+                else{
+                            console.log("Inside else statement")
+                            $(document).ready(function(){
+                                 $( "<div class='loopDiv' style='display: flex; margin-bottom: 20px;'></div>" ).appendTo( "#rightSide" );
+                            
+                            
+                            for(var i = 0; i < Object.keys(data).length; i++)
+                            {
+                                // $("<div class = \"innerContainer\"></div>").appendTo( ".loopDiv" )
+                                // $("<div class='imageDiv'></div>").appendTo(".innerContainer")
+                                // $("<img class=\"productImage\" src=\"" + data[i]["picture"] + "\">").appendTo(".imageDiv")
+                                // $("<div class = \"displayVertical\"></div>").appendTo(".innerContainer")
+                                // $("<div class = \"nameOfProduct\">"+ data[i]["name"] +"</div>)").appendTo(".displayVertical")
+                                // $("<button  type=\"button\" id='button" +i +"' onclick=\"displayModal('button" +i+"');\">"+ data[i]["price"] +"</button>").appendTo(".displayVertical")
+                                
+                                 $(document).ready(function(){
+                                     
+                                      $(".loopDiv").append("<div class = \"innerContainer\"></div>")
+                                    $(".innerContainer").append("<div class=\"imageDiv\"></div>")
+                                $(".imageDiv").append("<img class=\"productImage\" src=\"" + data[i]["picture"] + "\">")
+                                $(".innerContainer").append("<div class = \"displayVertical\"></div>")
+                                $(".displayVertical").append("<div class = \"nameOfProduct\">"+ data[i]["name"] +"</div>)")
+                                $(".displayVertical").append("<button  type=\"button\" id='button" +i +"' onclick=\"displayModal('button" +i+"');\">"+ data[i]["price"] +"</button>")
+                                 });
+                                
+                               
+                                
+                            }
+                        
+                                
+                            });
+                           
+                            
+                            // "<div class = \"innerContainer\">
+                            //             <div>
+                            //                 <img class=\"productImage\" src=\"". $arrivals[$i]["picture"]."\">
+                            //             </div>
+                                        
+                            //             <div class = \"displayVertical\">
+                            //                 <div class = \"nameOfProduct\">". $arrivals[$i]["name"]."</div>
+                            //                 <button  type=\"button\" id='button".$i."' onclick=\"displayModal('button".$i."');\">".$arrivals[$i]["price"]."</button>
+                            //             </div>
+                                      
+                            //           <!-- end of inner product container -->
+                            // </div>";
+                            
+                            
+                           // $("<div id=\"modal".$i."\" class=\"modal\"></div>").appendTo(".rightSide")
+                            
+                            
+                        
+                    
+                }
+               
+                
+                
+                
+
             
               },    
               error: function(data) {

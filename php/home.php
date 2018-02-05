@@ -13,7 +13,7 @@
         $arrivals = getNewArrivals();
 	?>
     <body>
-        <div id="cointer">
+        <div id="cotainer">
             
             <!-- Image div -->
             <div style='display:flex;'>
@@ -37,13 +37,14 @@
                 <ul style="margin-top: 5px;">
                     <li><a id="pic1" href="./home.php">Home</a></li>
                     <li><a href="./shop.php">Shop</a></li>
-                    <li><a href="./shop.php">About</a></li>
+                    <li><a href="./about.php">About</a></li>
                     <li><a href="./shop.php">Contact</a></li>
                 </ul>
             </div>
+            <hr>
             
             <!-- Slideshow -->
-            <div class="slideshow-container">
+            <div class="slideshow-container" style="margin-top: 40px;">
                     <div class="mySlides fade">
                       <img class = "slideImage" src="../images/pic4.jpg" style="width:100%" alt="image not found">
                     </div>
@@ -59,7 +60,7 @@
             
             <!-- New Arrivals -->
             <div id="newArrivals">
-                <h2 style="margin-top: 90px;">New Arrivals</h2>
+                <h2 style="margin-top: 75px;">New Arrivals</h2>
                 
                 <!-- main container -->
                 <div class="displayHorizontal">
@@ -268,7 +269,7 @@
 		///echo"inside validate user function";
 		global $dbConn;
 		    
-		$query = "select * from Products";
+		$query = "select * from Products order by category limit 4;";
 	  
 		$statement = $dbConn->prepare($query);
 		

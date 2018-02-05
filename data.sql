@@ -9,3 +9,4 @@ insert into Products(name,picture,quantity,price,category) values("Dope Sweater"
 
 insert into Products(name,picture,quantity,price,category) values("Barber DVD",
 "https://cdn.shopify.com/s/files/1/1068/5672/products/ACATAR-Vol3_book_1024x1024.jpg?v=1457735116",5,40.00,"DVD");
+
