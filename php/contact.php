@@ -35,19 +35,21 @@
             </div>
             
             <hr>
-            
-            <h1>About Gomez The Barber...</h1>
+            <!-- https://scontent-lax3-1.xx.fbcdn.net/v/t1.0-9/23031166_1365319996912383_6007047959702590488_n.jpg?oh=74bad49fbc1d570a021c4f7617390cef&oe=5B13F23B  -->
+            <h1 style="color:white; text-align:center;">Stay in touch with your boy Gomez!</h1>
             
             <div style="text-align: center; margin-top: 50px;">
-                <img class='about-image' src = 'https://scontent-sjc3-1.xx.fbcdn.net/v/t31.0-8/21729061_1323736894404027_2910500605477194976_o.jpg?oh=172e18edb8e72eae2b4410b00a617bc4&oe=5AE743F2' alt="image not found">
+                <img class='about-image' src = ' https://scontent-lax3-1.xx.fbcdn.net/v/t1.0-9/23031166_1365319996912383_6007047959702590488_n.jpg?oh=74bad49fbc1d570a021c4f7617390cef&oe=5B13F23B' alt="image not found">
             </div>
             
             <div style="width: 50%; text-align: center; margin:auto; margin-top: 30px;" >
-                <p class='description'>Gomez The Barber started cutting hair in 2015 and is establishing himself as a Master Barber at The Barbers Inc. Barbershop. 
-                Specializing in men's haircuts and black mask facials. His attention to detail is what separates him from other barbers. 
-                He is dedicated to making each customer leave satisfied and feeling good. You can book online at The Barbers Inc. 
-                Barbershop or call me directly. The shop is located in San Jose, CA on 2195 Monterey Rd. Parking and WIFI available.</p>
+                <ul>
+                    <li class='list'>(831) 7760235</li>
+                    <li class='list'>gomezthebarber19@gmail.com</li>
+                    <li class='list'>snapchat: gomezthebarber1</li>
+                </ul>
             </div>
+
             
             <footer style="background-color: #222222; margin-top: 20px;">
                 <div style="display: flex;">

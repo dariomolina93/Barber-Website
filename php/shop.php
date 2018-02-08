@@ -40,7 +40,7 @@
                 <ul style="margin-top: 5px;">
                     <li><a id="pic1" href="./home.php">Home</a></li>
                     <li><a href="#">Shop</a></li>
-                    <li><a href="./shop.php">About</a></li>
+                    <li><a href="./about.php">About</a></li>
                     <li><a href="./shop.php">Contact</a></li>
                 </ul>
             </div>
@@ -246,7 +246,7 @@
                  //$("<div class='loopDiv' style='display: flex; margin-bottom: 20px;'>helloworld</div>" ).appendTo("#rightSide" );
                 if(Object.keys(data).length > 4)
                 {
-                    console.log("inside if statement")
+                    console.log("inside if statement items > 4")
                      for(var i = 0; i < Object.keys(data).length; i++)
                         {
                             console.log("Inside for loop i")
@@ -284,8 +284,8 @@
                 }
                 
                 else{
-                            console.log("Inside else statement")
-                            $(document).ready(function(){
+                            console.log("Inside else statement < 4")
+        
                                  $( "<div class='loopDiv' style='display: flex; margin-bottom: 20px;'></div>" ).appendTo( "#rightSide" );
                             
                             
@@ -298,22 +298,18 @@
                                 // $("<div class = \"nameOfProduct\">"+ data[i]["name"] +"</div>)").appendTo(".displayVertical")
                                 // $("<button  type=\"button\" id='button" +i +"' onclick=\"displayModal('button" +i+"');\">"+ data[i]["price"] +"</button>").appendTo(".displayVertical")
                                 
-                                 $(document).ready(function(){
                                      
-                                      $(".loopDiv").append("<div class = \"innerContainer\"></div>")
-                                    $(".innerContainer").append("<div class=\"imageDiv\"></div>")
+                                $(".loopDiv").append("<div class = \"innerContainer\"></div>")
+                                $(".innerContainer").append("<div class=\"imageDiv\"></div>")
                                 $(".imageDiv").append("<img class=\"productImage\" src=\"" + data[i]["picture"] + "\">")
                                 $(".innerContainer").append("<div class = \"displayVertical\"></div>")
-                                $(".displayVertical").append("<div class = \"nameOfProduct\">"+ data[i]["name"] +"</div>)")
+                                $(".displayVertical").append("<div class = \"nameOfProduct\">"+ data[i]["name"] +"</div>")
                                 $(".displayVertical").append("<button  type=\"button\" id='button" +i +"' onclick=\"displayModal('button" +i+"');\">"+ data[i]["price"] +"</button>")
-                                 });
+                                
                                 
                                
                                 
                             }
-                        
-                                
-                            });
                            
                             
                             // "<div class = \"innerContainer\">
