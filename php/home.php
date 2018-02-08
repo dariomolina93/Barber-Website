@@ -92,35 +92,39 @@
                             
                               <!-- Modal content -->
                               <!-- Main container -->
-                              <div style=\"display: flex;\" class=\"modal-content\">
-                                    
-                                    <!-- Left side (description) -->
-                                    <div style='width:50%;'>
-                                        <h2 class = 'nameTitle'>".$arrivals[$i]["name"]."</h2>
-                                    
-                                        <div class='price'>$".$arrivals[$i]['price']."</div>
+                              <div class=\"modal-content\">
+                                  <span id='close".$i."' class='close' onclick=\"closeModal('close".$i."');\">&times;</span>
+                                  <br>
+                                  <br>
+                                  <div style=\"display: flex;\">
                                         
-                                        <form method='POST' action='cart.php'>
-                                            <div class = 'displayHorizontal'>
-                                                <div>Quantity</div>
-                                                <input id = 'quantity' onkeypress='return isNumberKey(event)' type='text' name='quantity' value='1'>
-                                            </div>
+                                        <!-- Left side (description) -->
+                                        <div style='width:50%;'>
+                                            <h2 class = 'nameTitle'>".$arrivals[$i]["name"]."</h2>
+                                            <hr style='width: 90%;'>
+                                        
+                                            <div class='price'>$".$arrivals[$i]['price']."</div>
                                             
-                                            <input type='submit' value='Add to Cart'>
-                                        </form>
-                                    </div>
-                                    
-                                    <!-- Image -->
-                                    <div style='width:50%;'>
-                                        <img class=\"productImage\" src=\"".$arrivals[$i]["picture"]."\">
-                                    
-                                    </div>
-    
-                                   
-                              <!-- End of div modal container -->
+                                            <form method='POST' action='cart.php'>
+                                                <div style='margin-top: 10px;'>
+                                                    <span style='font-size: 20px;'>Quantity</span>
+                                                    <input id = 'quantity' onkeypress='return isNumberKey(event)' type='text' name='quantity' value='1'>
+                                                </div>
+                                                
+                                                <input type='submit' value='Add to Cart'>
+                                            </form>
+                                        </div>
+                                        
+                                        <!-- Image -->
+                                        <div style='width:50%;'>
+                                            <img class=\"productImage\" src=\"".$arrivals[$i]["picture"]."\">
+                                        </div>
+                                       
+                                  <!-- End of div modal container -->
+                                  </div>
                               </div>
                         
-                            
+                              
                             </div>";
                             
                         }
@@ -184,6 +188,22 @@
         <script>
                 var modals = [];
                 var buttons = [];
+                var closeButton = [];
+                
+                function closeModal(closeId)
+                {
+                    var i;
+                    
+                    for(i = 0; i < 4; i++)
+                    {
+                        if(closeButton[i].id === closeId)
+                        {
+                            modals[i].style.display = "none";
+                        }
+                    }
+                }
+                
+                
                 
                 function displayModal(buttonId)
                 {
@@ -200,13 +220,13 @@
                 };
                 
                 function isNumberKey(evt)
-      {
-         var charCode = (evt.which) ? evt.which : event.keyCode
-         if (charCode > 31 && (charCode < 48 || charCode > 57))
-            return false;
-
-         return true;
-      }
+                 {
+                    var charCode = (evt.which) ? evt.which : event.keyCode
+                    if (charCode > 31 && (charCode < 48 || charCode > 57))
+                       return false;
+        
+                    return true;
+                 }
 
 
         document.addEventListener("DOMContentLoaded", function(event) { 
@@ -218,24 +238,18 @@
                 {
                     modals[i] = document.getElementById("modal"+i)
                     buttons[i] = document.getElementById("button"+i)//.addEventListener ("click", displayModal("button"+i), false);
+                    closeButton[i] = document.getElementById("close"+i)
                 }
                 
             console.log("buttons[0]=" +buttons[0])
-                
-                
-                 /*
-                // When the user clicks the button, open the modal 
-                btn.onclick = function()
-                {
-                modal.style.display = "block";
-                }
-                */
                 
                 // When the user clicks anywhere outside of the modal, close it
                 window.onclick = function(event)
                 {
                     for(i = 0; i < 4; i++)
                         {
+                            
+                            
                             if (event.target == modals[i])
                             {
                                 modals[i].style.display = "none";

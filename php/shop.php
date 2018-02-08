@@ -298,14 +298,19 @@
                                 // $("<div class = \"nameOfProduct\">"+ data[i]["name"] +"</div>)").appendTo(".displayVertical")
                                 // $("<button  type=\"button\" id='button" +i +"' onclick=\"displayModal('button" +i+"');\">"+ data[i]["price"] +"</button>").appendTo(".displayVertical")
                                 
-                                     
-                                $(".loopDiv").append("<div class = \"innerContainer\"></div>")
-                                $(".innerContainer").append("<div class=\"imageDiv\"></div>")
-                                $(".imageDiv").append("<img class=\"productImage\" src=\"" + data[i]["picture"] + "\">")
-                                $(".innerContainer").append("<div class = \"displayVertical\"></div>")
-                                $(".displayVertical").append("<div class = \"nameOfProduct\">"+ data[i]["name"] +"</div>")
-                                $(".displayVertical").append("<button  type=\"button\" id='button" +i +"' onclick=\"displayModal('button" +i+"');\">"+ data[i]["price"] +"</button>")
-                                
+                                console.log("before appending i=" + i)
+                                $(".loopDiv").append("<div id='inContainer"+i+"' class = 'innerContainer'"+i+"></div>")
+                                console.log("after appending innerconter to .loopdiv  i=" + i)
+                                $("#inContainer"+i).append("<div id='imageDiv"+i+"' class=\"imageDiv\"></div>")
+                                console.log("after appending .imageDiv to .innerContainer i=" + i)
+                                $("#imageDiv"+i).append("<img class=\"productImage\""+i+" src=\"" + data[i]["picture"] + "\">")
+                                console.log("after appending .productImage to .imageDiv i=" + i)
+                                $("#inContainer"+i).append("<div id='displayVertical"+i+"' class = \"displayVertical\"></div>")
+                                console.log("after appending .displayVertical to .innerContainer i=" + i)
+                                $("#displayVertical"+i).append("<div id='nameOfProduct"+i+"' class = \"nameOfProduct\">"+ data[i]["name"] +"</div>")
+                                console.log("after appending .nameOfProduct to .displayVertical i=" + i)
+                                $("#displayVertical"+i).append("<button  type=\"button\" id='button" +i +"' onclick=\"displayModal('button" +i+"');\">"+ data[i]["price"] +"</button>")
+                                console.log("after appending button to .displayVertical i=" + i + "\n\n\n")
                                 
                                
                                 

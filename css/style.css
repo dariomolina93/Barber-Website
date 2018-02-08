@@ -191,18 +191,30 @@ a{
   text-align: center;
   font-size: 1.875em;
   font-family: 'Century Gothic', Helvetica, Arial, sans-serif;
-  
+  margin-bottom: 1px;
   
   color: #262626;
   letter-spacing: .02778em;
 }
 
 #quantity{
-  width: 10px;
+  width: 23px;
+  text-align: center;
+}
+
+li:hover{
+  background-color: #262626;
+}
+
+input[type=submit]{
+    margin-top: 20px;
+    background-color: #8a8a8a69;
+
 }
 
 .price{
-  margin-top:10px;
+    margin-top: 20px;
+    font-size: 25px;
 }
 
 .displayHorizontal{
@@ -212,7 +224,7 @@ a{
 
 
 .productImage{
-  height: 300px;
+  height: 400px;
   width: 100%;
 }
 
@@ -292,6 +304,7 @@ body{
 .close {
     color: #aaaaaa;
     float: right;
+    height:1px;
     font-size: 28px;
     font-weight: bold;
 }
