@@ -157,6 +157,12 @@ a{
   display: inline-block;
 }
 
+.appointment{
+   font-family: 'Century Gothic', Helvetica, Arial, sans-serif;
+   font-weight: 400;
+   color:white;
+}
+
 
 .innerContainer{
       font-weight: 400;
@@ -195,6 +201,11 @@ a{
   
   color: #262626;
   letter-spacing: .02778em;
+}
+
+.imageBarber{
+  width: 700px;
+  height: 400px;
 }
 
 #quantity{
@@ -315,3 +326,11 @@ body{
     text-decoration: none;
     cursor: pointer;
 }
+
+.qty {
+    width: 40px;
+    height: 25px;
+    text-align: center;
+}
+.qtyplus { width:25px; height:25px;}
+.qtyminus { width:25px; height:25px;}

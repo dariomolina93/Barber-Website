@@ -36,3 +36,42 @@ Stack trace:
 [04-Feb-2018 00:20:19 UTC] PHP Stack trace:
 [04-Feb-2018 00:20:19 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/retrieveProducts.php:0
 [08-Feb-2018 06:35:45 UTC] PHP Parse error:  syntax error, unexpected 'close' (T_STRING), expecting ',' or ';' in /home/ubuntu/workspace/php/home.php on line 117
+[21-Feb-2018 07:54:40 UTC] PHP Fatal error:  Call to undefined function getNewArrivals() in /home/ubuntu/workspace/php/cart.php on line 13
+[21-Feb-2018 07:54:40 UTC] PHP Stack trace:
+[21-Feb-2018 07:54:40 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/cart.php:0
+[21-Feb-2018 08:01:37 UTC] PHP Fatal error:  Call to undefined function getNewArrivals() in /home/ubuntu/workspace/php/cart.php on line 15
+[21-Feb-2018 08:01:37 UTC] PHP Stack trace:
+[21-Feb-2018 08:01:37 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/cart.php:0
+[21-Feb-2018 08:39:37 UTC] PHP Fatal error:  Call to undefined function incrementCount() in /home/ubuntu/workspace/php/OrderItem.php on line 17
+[21-Feb-2018 08:39:37 UTC] PHP Stack trace:
+[21-Feb-2018 08:39:37 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/cart.php:0
+[21-Feb-2018 08:39:37 UTC] PHP   2. OrderItem->__construct() /home/ubuntu/workspace/php/cart.php:19
+[21-Feb-2018 08:40:32 UTC] PHP Fatal error:  Call to undefined function incrementCount() in /home/ubuntu/workspace/php/OrderItem.php on line 17
+[21-Feb-2018 08:40:32 UTC] PHP Stack trace:
+[21-Feb-2018 08:40:32 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/cart.php:0
+[21-Feb-2018 08:40:32 UTC] PHP   2. OrderItem->__construct() /home/ubuntu/workspace/php/cart.php:19
+[21-Feb-2018 08:40:53 UTC] PHP Fatal error:  Using $this when not in object context in /home/ubuntu/workspace/php/OrderItem.php on line 22
+[21-Feb-2018 08:40:53 UTC] PHP Stack trace:
+[21-Feb-2018 08:40:53 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/cart.php:0
+[21-Feb-2018 08:40:53 UTC] PHP   2. OrderItem->__construct() /home/ubuntu/workspace/php/cart.php:19
+[21-Feb-2018 08:40:53 UTC] PHP   3. OrderItem::incrementCount() /home/ubuntu/workspace/php/OrderItem.php:17
+[21-Feb-2018 08:41:24 UTC] PHP Fatal error:  Class 'ItemOrder' not found in /home/ubuntu/workspace/php/OrderItem.php on line 17
+[21-Feb-2018 08:41:24 UTC] PHP Stack trace:
+[21-Feb-2018 08:41:24 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/cart.php:0
+[21-Feb-2018 08:41:24 UTC] PHP   2. OrderItem->__construct() /home/ubuntu/workspace/php/cart.php:19
+[22-Feb-2018 01:51:32 UTC] PHP Warning:  Illegal offset type in /home/ubuntu/workspace/php/cart.php on line 24
+[22-Feb-2018 01:51:32 UTC] PHP Stack trace:
+[22-Feb-2018 01:51:32 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/cart.php:0
+[22-Feb-2018 01:52:36 UTC] PHP Warning:  Illegal offset type in /home/ubuntu/workspace/php/cart.php on line 24
+[22-Feb-2018 01:52:36 UTC] PHP Stack trace:
+[22-Feb-2018 01:52:36 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/cart.php:0
+[22-Feb-2018 01:54:05 UTC] PHP Warning:  Illegal offset type in /home/ubuntu/workspace/php/cart.php on line 24
+[22-Feb-2018 01:54:05 UTC] PHP Stack trace:
+[22-Feb-2018 01:54:05 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/cart.php:0
+[22-Feb-2018 01:55:30 UTC] PHP Warning:  trim() expects parameter 1 to be string, object given in /home/ubuntu/workspace/php/cart.php on line 24
+[22-Feb-2018 01:55:30 UTC] PHP Stack trace:
+[22-Feb-2018 01:55:30 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/cart.php:0
+[22-Feb-2018 01:55:30 UTC] PHP   2. trim() /home/ubuntu/workspace/php/cart.php:24
+[22-Feb-2018 01:56:58 UTC] PHP Catchable fatal error:  Object of class OrderItem could not be converted to string in /home/ubuntu/workspace/php/cart.php on line 24
+[22-Feb-2018 01:56:58 UTC] PHP Stack trace:
+[22-Feb-2018 01:56:58 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/cart.php:0

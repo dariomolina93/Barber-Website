@@ -49,11 +49,14 @@
                 Barbershop or call me directly. The shop is located in San Jose, CA on 2195 Monterey Rd. Parking and WIFI available.</p>
             </div>
             
-            <footer style="background-color: #222222; margin-top: 20px;">
+            <footer style="background-color: #222222; margin-top: 40px;">
                 <div style="display: flex;">
                     
-                    
-                    <div style="margin: auto;">
+                    <div style="width: 50%;">
+                        <a class='appointment' style= 'float: right; margin-top: 7px;'href="https://shops.getsquire.com/book/the-barbers-inc-south-san-jose-san-jose/barber/gomez-the-barber">Make an appointment!</a>
+                    </div>
+                   
+                    <div style="margin: auto; width: 50%; padding-left: 40px;">
                         <a target="_blank" href="[full link to your Twitter]">
                         <img title="Twitter" alt="Twitter" src="https://socialmediawidgets.files.wordpress.com/2014/03/01_twitter.png" width="30" height="30" />
                         </a>
@@ -68,9 +71,9 @@
                         <a target="_blank" href="https://www.facebook.com/alex.gomez.98">
                         <img title="Facebook" alt="Facebook" src="https://socialmediawidgets.files.wordpress.com/2014/03/facebook.png" width="30" height="30" />
                         </a>
-                
-                    
-                </div>
+                        
+                    </div>
+                         
             </footer>
             
         </div>

@@ -3,10 +3,36 @@
     include "databaseConnection.php";
     $conn = getDatabaseConnection();
     
-    retrieveProducts();
+    //var_dump($_POST);
     
+    if($_POST["category"] == "count")
+    {
+    	//echo"inside if";
+    	getProductQuantity();
+    }	
+    else
+    {
+    	//echo"inside else";
+    	retrieveProducts();
+    }
 
+
+	function getProductQuantity()
+	{
+		global $conn;
+		$query = "select count(id) as count from Products";
+	    
+	    $statement = $conn->prepare($query);
+			
+		$statement->execute();  
+			
+		$row = $statement -> fetch();
 	
+		$array[0] = array("products" => $row["count"]);
+		
+		header('Content-Type: application/json');
+		echo json_encode($array);
+	}
 	
 	function retrieveProducts()
 	{

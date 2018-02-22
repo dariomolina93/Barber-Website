@@ -2,6 +2,7 @@
     <head>
         <title>Gomez The Barber</title>
         <link rel="stylesheet" href="../css/style.css">
+          <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         
     </head>
     
@@ -19,7 +20,7 @@
             <div style='display:flex;'>
                 
                 <div id="imageLogo">
-                    <img src="../images/barberLogo.jpg" alt="Logo" height="250" width="700">
+                    <img class = 'imageBarber' src="../images/barberLogo.jpg" alt="Logo">
                 </div>
                 
                 <div style= "text-align:right;">
@@ -71,18 +72,29 @@
    
                         for($i = 0; $i < count($arrivals); $i++)
                         {
-                            echo "<div class = \"innerContainer\">
-                                <div>
-                                    <img class=\"productImage\" src=\"". $arrivals[$i]["picture"]."\">
+                            echo "
+                            
+                                <div id='button".$i."' class = \"innerContainer\"  onclick=\"displayModal('button".$i."');\">
+                                    <div>
+                                        <img class=\"productImage\" src=\"". $arrivals[$i]["picture"]."\">
+                                    </div>
+                                    
+                                    <div class = \"displayVertical\">
+                                        <div class = \"nameOfProduct\">". $arrivals[$i]["name"]."</div>
+                                        <div class = 'nameOfProduct' style ='margin-top:5px;' >$".$arrivals[$i]["price"]."</div>";
+                                        
+                                        if($arrivals[$i]["quantity"] < 2)
+                                        {
+                                            echo "
+                                            <div style='background-color: red; color: black; margin-bottom: 10px;'>Only 2 left in stock!</div>";
+                                        }
+                                    echo"</div>
+                                  
+                                  <!-- end of inner product container -->
                                 </div>
                                 
-                                <div class = \"displayVertical\">
-                                    <div class = \"nameOfProduct\">". $arrivals[$i]["name"]."</div>
-                                    <button  type=\"button\" id='button".$i."' onclick=\"displayModal('button".$i."');\">".$arrivals[$i]["price"]."</button>
-                                </div>
-                              
-                              <!-- end of inner product container -->
-                            </div>";
+                            ";
+                                
                             
                             echo "
                             
@@ -100,16 +112,30 @@
                                         
                                         <!-- Left side (description) -->
                                         <div style='width:50%;'>
-                                            <h2 class = 'nameTitle'>".$arrivals[$i]["name"]."</h2>
-                                            <hr style='width: 90%;'>
-                                        
-                                            <div class='price'>$".$arrivals[$i]['price']."</div>
                                             
-                                            <form method='POST' action='cart.php'>
+                                        <h2 class = 'nameTitle'>".$arrivals[$i]["name"]."</h2>
+                                                
+                                        <hr style='width: 90%;'>
+                                        <form method='POST' action='cart.php'>
+                                                <div class='price'>$".$arrivals[$i]['price']."</div>
+                                                <input type='hidden' name='nameProduct' value='".$arrivals[$i]['name']."'>
+                                                <input type='hidden' name='price' value='".$arrivals[$i]['price']."'>
+                                            
+                                            
                                                 <div style='margin-top: 10px;'>
                                                     <span style='font-size: 20px;'>Quantity</span>
-                                                    <input id = 'quantity' onkeypress='return isNumberKey(event)' type='text' name='quantity' value='1'>
+                                                    
+                                                    <input type='button' value='-' class='qtyminus' field='quantity' />
+                                                    <input  readonly type='text' name='quantity' value='0' class='qty' />
+                                                    <input type='button' value='+' class='qtyplus' field='quantity' />
                                                 </div>
+                                                
+                                                <select name='size'>
+                                                <option value='small'>Small</option>
+                                                <option value='medium'>Medium</option>
+                                                <option value='large'>Large</option>
+                                                <option value='xl'>XL</option>
+                                              </select>
                                                 
                                                 <input type='submit' value='Add to Cart'>
                                             </form>
@@ -158,8 +184,11 @@
             <footer style="background-color: #222222; margin-top: 40px;">
                 <div style="display: flex;">
                     
-                    
-                    <div style="margin: auto;">
+                    <div style="width: 50%;">
+                        <a class='appointment' style= 'float: right; margin-top: 7px;'href="https://shops.getsquire.com/book/the-barbers-inc-south-san-jose-san-jose/barber/gomez-the-barber">Make an appointment!</a>
+                    </div>
+                   
+                    <div style="margin: auto; width: 50%; padding-left: 40px;">
                         <a target="_blank" href="[full link to your Twitter]">
                         <img title="Twitter" alt="Twitter" src="https://socialmediawidgets.files.wordpress.com/2014/03/01_twitter.png" width="30" height="30" />
                         </a>
@@ -174,9 +203,9 @@
                         <a target="_blank" href="https://www.facebook.com/alex.gomez.98">
                         <img title="Facebook" alt="Facebook" src="https://socialmediawidgets.files.wordpress.com/2014/03/facebook.png" width="30" height="30" />
                         </a>
-                
-                    
-                </div>
+                        
+                    </div>
+                         
             </footer>
             
         <!-- End of div container -->
@@ -258,6 +287,46 @@
                 }
             
         });
+        
+        
+        
+    jQuery(document).ready(function(){
+    // This button will increment the value
+    $('.qtyplus').click(function(e){
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        fieldName = $(this).attr('field');
+        // Get its current value
+        var currentVal = parseInt($('input[name='+fieldName+']').val());
+        // If is not undefined
+        if (!isNaN(currentVal)) {
+            // Increment
+            $('input[name='+fieldName+']').val(currentVal + 1);
+        } else {
+            // Otherwise put a 0 there
+            $('input[name='+fieldName+']').val(0);
+        }
+    });
+    // This button will decrement the value till 0
+    $(".qtyminus").click(function(e) {
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        fieldName = $(this).attr('field');
+        // Get its current value
+        var currentVal = parseInt($('input[name='+fieldName+']').val());
+        // If it isn't undefined or its greater than 0
+        if (!isNaN(currentVal) && currentVal > 0) {
+            // Decrement one
+            $('input[name='+fieldName+']').val(currentVal - 1);
+        } else {
+            // Otherwise put a 0 there
+            $('input[name='+fieldName+']').val(0);
+        }
+    });
+});
+
         
             
 </script>

@@ -10,9 +10,7 @@
 		include "databaseConnection.php";
         $dbConn = getDatabaseConnection();
         
-        $a1 = getNewArrivals();
-        $a2 = getNewArrivals();
-        $arrivals = array_merge($a1,$a2);
+        $arrivals = getAllProducts();
     
 	?>
     <body>
@@ -60,18 +58,21 @@
    
                         for($i = 0; $i < count($arrivals); $i++)
                         {
-                            echo"<div class='loopDiv' style='display: flex; margin-bottom: 20px;'>";
+                            echo"<div class='loopDiv displayHorizontal' style='margin-bottom: 20px;'>";
                             
                             for($j =0; $j < 4; $j++)
                             {
-                            echo"<div class = \"innerContainer\">
+                                if($i == count($arrivals))
+                                    break;
+                                    
+                            echo"<div id='button".$i."' class = \"innerContainer\"  onclick=\"displayModal('button".$i."');\">
                                 <div>
                                     <img class=\"productImage\" src=\"". $arrivals[$i]["picture"]."\">
                                 </div>
                                 
                                 <div class = \"displayVertical\">
                                     <div class = \"nameOfProduct\">". $arrivals[$i]["name"]."</div>
-                                    <button  type=\"button\" id='button".$i."' onclick=\"displayModal('button".$i."');\">".$arrivals[$i]["price"]."</button>
+                                    <div class = 'nameOfProduct' style ='margin-top:5px;' >$".$arrivals[$i]["price"]."</div>
                                 </div>
                               
                               <!-- end of inner product container -->
@@ -84,34 +85,50 @@
                             
                               <!-- Modal content -->
                               <!-- Main container -->
-                              <div style=\"display: flex;\" class=\"modal-content\">
-                                    
-                                    <!-- Left side (description) -->
-                                    <div style='width:50%;'>
-                                        <h2 class = 'nameTitle'>".$arrivals[$i]["name"]."</h2>
-                                    
-                                        <div class='price'>$".$arrivals[$i]['price']."</div>
+                              <div class=\"modal-content\">
+                                  <span id='close".$i."' class='close' onclick=\"closeModal('close".$i."');\">&times;</span>
+                                  <br>
+                                  <br>
+                                  <div style=\"display: flex;\">
                                         
-                                        <form method='POST' action='cart.php'>
-                                            <div class = 'displayHorizontal'>
-                                                <div>Quantity</div>
-                                                <input id = 'quantity' onkeypress='return isNumberKey(event)' type='text' name='quantity' value='1'>
-                                            </div>
+                                        <!-- Left side (description) -->
+                                        <div style='width:50%;'>
+                                            <h2 class = 'nameTitle'>".$arrivals[$i]["name"]."</h2>
+                                            <hr style='width: 90%;'>
+                                            <form method='POST' action='cart.php'>
+                                                <div class='price'>$".$arrivals[$i]['price']."</div>
+                                                <input type='hidden' name='nameProduct' value='".$arrivals[$i]['name']."'>
+                                                <input type='hidden' name='price' value='".$arrivals[$i]['price']."'>
+                                                
                                             
-                                            <input type='submit' value='Add to Cart'>
-                                        </form>
-                                    </div>
-                                    
-                                    <!-- Image -->
-                                    <div style='width:50%;'>
-                                        <img class=\"productImage\" src=\"".$arrivals[$i]["picture"]."\">
-                                    
-                                    </div>
-    
-                                   
-                              <!-- End of div modal container -->
+                                                <div style='margin-top: 10px;'>
+                                                    <span style='font-size: 20px;'>Quantity</span>
+                                                    <input type='button' value='-' class='qtyminus' field='quantity' />
+                                                    <input  readonly type='text' name='quantity' value='0' class='qty' />
+                                                    <input type='button' value='+' class='qtyplus' field='quantity' />
+                                                </div>
+                                                
+                                                <select name='size'>
+                                                    <option value='small'>Small</option>
+                                                    <option value='medium'>Medium</option>
+                                                    <option value='large'>Large</option>
+                                                    <option value='xl'>XL</option>
+                                                </select>
+                                                
+                                                <input type='submit' value='Add to Cart'>
+                                            </form>
+                                        </div>
+                                        
+                                        <!-- Image -->
+                                        <div style='width:50%;'>
+                                            <img class=\"productImage\" src=\"".$arrivals[$i]["picture"]."\">
+                                        </div>
+                                       
+                                  <!-- End of div modal container -->
+                                  </div>
                               </div>
                         
+                              
                             </div>";
                             
                             $i++;
@@ -130,11 +147,14 @@
             </div>
             
             
-            <footer style="background-color: #222222;">
+           <footer style="background-color: #222222; margin-top: 40px;">
                 <div style="display: flex;">
                     
-                    
-                    <div style="margin: auto;">
+                    <div style="width: 50%;">
+                        <a class='appointment' style= 'float: right; margin-top: 7px;'href="https://shops.getsquire.com/book/the-barbers-inc-south-san-jose-san-jose/barber/gomez-the-barber">Make an appointment!</a>
+                    </div>
+                   
+                    <div style="margin: auto; width: 50%; padding-left: 40px;">
                         <a target="_blank" href="[full link to your Twitter]">
                         <img title="Twitter" alt="Twitter" src="https://socialmediawidgets.files.wordpress.com/2014/03/01_twitter.png" width="30" height="30" />
                         </a>
@@ -149,87 +169,138 @@
                         <a target="_blank" href="https://www.facebook.com/alex.gomez.98">
                         <img title="Facebook" alt="Facebook" src="https://socialmediawidgets.files.wordpress.com/2014/03/facebook.png" width="30" height="30" />
                         </a>
-                
-                    
-                </div>
+                        
+                    </div>
+                         
             </footer>
         </div>
         
         <script>
+                jQuery(document).ready(function(){
+    // This button will increment the value
+    $('.qtyplus').click(function(e){
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        fieldName = $(this).attr('field');
+        // Get its current value
+        var currentVal = parseInt($('input[name='+fieldName+']').val());
+        // If is not undefined
+        if (!isNaN(currentVal)) {
+            // Increment
+            $('input[name='+fieldName+']').val(currentVal + 1);
+        } else {
+            // Otherwise put a 0 there
+            $('input[name='+fieldName+']').val(0);
+        }
+    });
+    // This button will decrement the value till 0
+    $(".qtyminus").click(function(e) {
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        fieldName = $(this).attr('field');
+        // Get its current value
+        var currentVal = parseInt($('input[name='+fieldName+']').val());
+        // If it isn't undefined or its greater than 0
+        if (!isNaN(currentVal) && currentVal > 0) {
+            // Decrement one
+            $('input[name='+fieldName+']').val(currentVal - 1);
+        } else {
+            // Otherwise put a 0 there
+            $('input[name='+fieldName+']').val(0);
+        }
+    });
+});
+        </script>
+        
+        <script>
+
                 var modals = [];
                 var buttons = [];
+                var numberOfProducts;
+                var closeButton = [];
+
+        $.ajax({
+              url :  "retrieveProducts.php",
+              type: 'POST',
+              data: {category: "count"},
+              dataType: "json",
+              success: function(data) {
+                console.log( data);
                 
+                numberOfProducts = parseInt(data[0]["products"]);
+                 console.log("numberOfProducts =" + numberOfProducts);
+                 console.log("type" +typeof(numberOfProducts))
+                
+              },
+              error:function()
+             {
+                console.log("error getting product quantity")     
+             },
+             complete:function()
+             {
+                 for(var i = 0; i< numberOfProducts; i++)
+                    {
+                        modals[i] = document.getElementById("modal"+i)
+                        buttons[i] = document.getElementById("button"+i)//.addEventListener ("click", displayModal("button"+i), false);
+                        closeButton[i] = document.getElementById("close"+i)
+                        
+                    }
+             }
+            
+        });
+        
                 function displayModal(buttonId)
                 {
                     
                     var i;
                     
-                    console.log("length array: "+ buttons.length);
+                    console.log("Button was clicked to open modal");
+                    console.log("button id=" + buttonId)
                     
-                    for(i = 0; i < 8; i++)
+                    for(i = 0; i < numberOfProducts; i++)
                     {
                         if(buttons[i].id === buttonId)
                         {
+                            
                             modals[i].style.display = "block";
+                           break;
                         }
                     }
-                };
-                
-                function isNumberKey(evt)
-      {
-         var charCode = (evt.which) ? evt.which : event.keyCode
-         if (charCode > 31 && (charCode < 48 || charCode > 57))
-            return false;
-
-         return true;
-      }
-
-
-        document.addEventListener("DOMContentLoaded", function(event) { 
- 
-            
-                var i;
-                
-                for(i = 0; i< 8; i++)
+                    
+                    window.onclick = function(event)
                 {
-                    modals[i] = document.getElementById("modal"+i)
-                    buttons[i] = document.getElementById("button"+i)//.addEventListener ("click", displayModal("button"+i), false);
-                }
-                
-            console.log("buttons[0]=" +buttons[0])
-                
-                
-                 /*
-                // When the user clicks the button, open the modal 
-                btn.onclick = function()
-                {
-                modal.style.display = "block";
-                }
-                */
-                
-                // When the user clicks anywhere outside of the modal, close it
-                window.onclick = function(event)
-                {
-                    for(i = 0; i < 8; i++)
+                    for(i = 0; i < numberOfProducts; i++)
                         {
                             if (event.target == modals[i])
                             {
                                 modals[i].style.display = "none";
+                                break;
                             }
                         }
                 }
+                };
+                
+                
+             
+             function closeModal(closeId)
+                {
+                    var i;
+                    
+                    for(i = 0; i < 4; i++)
+                    {
+                        if(closeButton[i].id === closeId)
+                        {
+                            modals[i].style.display = "none";
+                            break;
+                        }
+                    }
+                }
             
-        });
-        
-            
-</script>
- 
-        <script>
             
             function getItems(item)
             {
-              console.log("div with " + item + "was pressed")
-              
               $.ajax({
               url :  "retrieveProducts.php",
               type: 'POST',
@@ -250,89 +321,159 @@
                      for(var i = 0; i < Object.keys(data).length; i++)
                         {
                             console.log("Inside for loop i")
-                            $( "<div class='loopDiv' style='display: flex; margin-bottom: 20px;'></div>" ).appendTo( "#rightSide" );
+                            var temp = i;
+                            $( "<div  id='loopDiv"+temp+"' class='loopDiv displayHorizontal' style='display: flex; margin-bottom: 20px;'></div>" ).appendTo( "#rightSide" );
                             
-                            
+                            console.log("Before j loop i =" + i)
                             for(var j = 0; j < 4; j++)
                             {
-                                console.log("inside for loop j")
-                                $("<div class = \"innerContainer\"></div>").appendTo( ".loopDiv" )
-                                $("<div class='imageDiv'></div>").appendTo(".innerContainer")
-                                $("<img class=\"productImage\" src=\"" + data[i]["picture"] + "\">").appendTo(".imageDiv")
+                                if(i === Object.keys(data).length)
+                                    break;
+                                
+                                $("#loopDiv"+temp).append("<div id='button"+i+"' class = 'innerContainer' onclick=\"displayModal('button"+i+"');\"></div>")
+                    
+                                $("#button"+i).append("<div id='imageDiv"+i+"' class=\"imageDiv\"></div>")
+                                //console.log("after appending .imageDiv to .innerContainer i=" + i)
+                                $("#imageDiv"+i).append("<img class=\"productImage\""+i+" src=\"" + data[i]["picture"] + "\">")
+                                //console.log("after appending .productImage to .imageDiv i=" + i)
+                                $("#button"+i).append("<div id='displayVertical"+i+"' class = \"displayVertical\"></div>")
+                                //console.log("after appending .displayVertical to .innerContainer i=" + i)
+                                $("#displayVertical"+i).append("<div id='nameOfProduct"+i+"' class = \"nameOfProduct\">"+ data[i]["name"] +"</div>")
+                                //console.log("after appending .nameOfProduct to .displayVertical i=" + i)
+                                $("#displayVertical"+i).append("<div class = 'nameOfProduct' style ='margin-top:5px;' >$"+ data[i]["price"] +"</div>")
+                                //console.log("after appending button to .displayVertical i=" + i + "\n\n\n")
+                                
+                                $(".loopDiv").append("<div id='modal"+i+"' class=\"modal\"></div>")
+                                $("#modal"+i).append("<div id='modal-content"+i+"' class=\"modal-content\"></div>")
+                                $("#modal-content"+i).append("<span id='close"+i+"' class='close' onclick=\"closeModal('close"+i+"');\">&times;</span>")
+                                $("#modal-content"+i).append("<br>")
+                                $("#modal-content"+i).append("<br>")
+                                
+                                
+                                
+                                $("#modal-content"+i).append("<div id='panels"+i+"' style=\"display: flex;\"></div>")
+                                $("#panels"+i).append("<div id='details"+i+"' style='width:50%;'></div>")
+                                $("#details"+i).append("<h2 class = 'nameTitle'>"+data[i]["name"]+"</h2>")
+                                $("#details"+i).append("<hr style='width: 90%;'>")
+                                $("#details"+i).append("<div class='price'>$"+data[i]['price']+"</div>")
+                                $("#details"+i).append("<form id='forms"+i+"'method='POST' action='cart.php'></form>")
+                                $("#forms"+i).append("<div id='userInput"+i+"' style='margin-top: 10px;'></div>")
+                                $("#forms"+i).append("<input type='hidden' name='nameProduct' value='"+data[i]['name']+"'>")
+                                $("#forms"+i).append("<input type='hidden' name='price' value='"+data[i]['price']+"'>")
+                                $("#userInput"+i).append("<span style='font-size: 20px;'>Quantity</span>")
+                                $("#userInput"+i).append("<input type='button' value='-' class='qtyminus' field='quantity' />")
+                                $("#userInput"+i).append("<input  readonly type='text' name='quantity' value='0' class='qty' />")
+                                $("#userInput"+i).append("<input type='button' value='+' class='qtyplus' field='quantity' />")
+                                $("#forms"+i).append("<select id='select"+i+"' name='size'>")
+                                $("#select"+i).append("<option value='small'>Small</option>")
+                                $("#select"+i).append("<option value='medium'>Medium</option>")
+                                $("#select"+i).append("<option value='large'>Large</option>")
+                                $("#select"+i).append("<option value='xl'>XL</option>")
+                                $("#forms"+i).append("<input style='margin-left: 5px;' type='submit' value='Add to Cart'>")
+                                
+                                
+                                $("#panels"+i).append("<div id='images"+i+"' style='width:50%;'></div>")
+                                $("#images"+i).append("<img class=\"productImage\" src=\""+data[i]["picture"]+"\">")
                                 i++
                             }
                             i--
-                            
-                            // "<div class = \"innerContainer\">
-                            //             <div>
-                            //                 <img class=\"productImage\" src=\"". $arrivals[$i]["picture"]."\">
-                            //             </div>
-                                        
-                            //             <div class = \"displayVertical\">
-                            //                 <div class = \"nameOfProduct\">". $arrivals[$i]["name"]."</div>
-                            //                 <button  type=\"button\" id='button".$i."' onclick=\"displayModal('button".$i."');\">".$arrivals[$i]["price"]."</button>
-                            //             </div>
-                                      
-                            //           <!-- end of inner product container -->
-                            // </div>";
-                            
-                            
-                           // $("<div id=\"modal".$i."\" class=\"modal\"></div>").appendTo(".rightSide")
-                            
-                            
+                            console.log("after j loop i =" + i)
                         }
+                        
+                        console.log("after page loaded");
+                       
+                            modals.length = 0;
+                            buttons.length = 0;
+                            closeButton.length = 0;
+                            
+                            console.log("clearing arrays")
+                            console.log("modalslength: "+ modals.length)
+                            
+                            console.log("amount of objects= " +Object.keys(data).length )
+                            
+                            for(var i = 0; i < Object.keys(data).length; i++)
+                            {
+                                console.log("inside for loop i=" + i)
+                                modals[i] = document.getElementById("modal"+i)
+                                buttons[i] = document.getElementById("button"+i)
+                                closeButton[i] = document.getElementById("close"+i)
+                            }
+                            
+                            
+                            console.log("modalslength: "+ modals.length)
+                            console.log("buttons length: "+ buttons.length)
                 }
                 
                 else{
-                            console.log("Inside else statement < 4")
+                            console.log("Inside else statement")
         
-                                 $( "<div class='loopDiv' style='display: flex; margin-bottom: 20px;'></div>" ).appendTo( "#rightSide" );
+                                 $( "<div class='loopDiv displayHorizontal' style='display: flex; margin-bottom: 20px;'></div>" ).appendTo( "#rightSide" );
                             
                             
                             for(var i = 0; i < Object.keys(data).length; i++)
                             {
-                                // $("<div class = \"innerContainer\"></div>").appendTo( ".loopDiv" )
-                                // $("<div class='imageDiv'></div>").appendTo(".innerContainer")
-                                // $("<img class=\"productImage\" src=\"" + data[i]["picture"] + "\">").appendTo(".imageDiv")
-                                // $("<div class = \"displayVertical\"></div>").appendTo(".innerContainer")
-                                // $("<div class = \"nameOfProduct\">"+ data[i]["name"] +"</div>)").appendTo(".displayVertical")
-                                // $("<button  type=\"button\" id='button" +i +"' onclick=\"displayModal('button" +i+"');\">"+ data[i]["price"] +"</button>").appendTo(".displayVertical")
                                 
-                                console.log("before appending i=" + i)
-                                $(".loopDiv").append("<div id='inContainer"+i+"' class = 'innerContainer'"+i+"></div>")
-                                console.log("after appending innerconter to .loopdiv  i=" + i)
-                                $("#inContainer"+i).append("<div id='imageDiv"+i+"' class=\"imageDiv\"></div>")
-                                console.log("after appending .imageDiv to .innerContainer i=" + i)
+                                $(".loopDiv").append("<div id='button"+i+"' class = 'innerContainer' onclick=\"displayModal('button"+i+"');\"></div>")
+                                $("#button"+i).append("<div id='imageDiv"+i+"' class=\"imageDiv\"></div>")
                                 $("#imageDiv"+i).append("<img class=\"productImage\""+i+" src=\"" + data[i]["picture"] + "\">")
-                                console.log("after appending .productImage to .imageDiv i=" + i)
-                                $("#inContainer"+i).append("<div id='displayVertical"+i+"' class = \"displayVertical\"></div>")
-                                console.log("after appending .displayVertical to .innerContainer i=" + i)
+                                $("#button"+i).append("<div id='displayVertical"+i+"' class = \"displayVertical\"></div>")
                                 $("#displayVertical"+i).append("<div id='nameOfProduct"+i+"' class = \"nameOfProduct\">"+ data[i]["name"] +"</div>")
-                                console.log("after appending .nameOfProduct to .displayVertical i=" + i)
-                                $("#displayVertical"+i).append("<button  type=\"button\" id='button" +i +"' onclick=\"displayModal('button" +i+"');\">"+ data[i]["price"] +"</button>")
-                                console.log("after appending button to .displayVertical i=" + i + "\n\n\n")
+                                $("#displayVertical"+i).append("<div class = 'nameOfProduct' style ='margin-top:5px;' >$"+ data[i]["price"] +"</div>")
                                 
-                               
+                                $(".loopDiv").append("<div id='modal"+i+"' class=\"modal\"></div>")
+                                $("#modal"+i).append("<div id='modal-content"+i+"' class=\"modal-content\"></div>")
+                                $("#modal-content"+i).append("<span id='close"+i+"' class='close' onclick=\"closeModal('close"+i+"');\">&times;</span>")
+                                $("#modal-content"+i).append("<br>")
+                                $("#modal-content"+i).append("<br>")
+                                
+                                $("#modal-content"+i).append("<div id='panels"+i+"' style=\"display: flex;\"></div>")
+                                $("#panels"+i).append("<div id='details"+i+"' style='width:50%;'></div>")
+                                $("#details"+i).append("<h2 class = 'nameTitle'>"+data[i]["name"]+"</h2>")
+                                $("#details"+i).append("<hr style='width: 90%;'>")
+                                $("#details"+i).append("<div class='price'>$"+data[i]['price']+"</div>")
+                                $("#details"+i).append("<form id='forms"+i+"'method='POST' action='cart.php'></form>")
+                                $("#forms"+i).append("<div id='userInput"+i+"' style='margin-top: 10px;'></div>")
+                                $("#forms"+i).append("<input type='hidden' name='nameProduct' value='"+data[i]['name']+"'>")
+                                $("#forms"+i).append("<input type='hidden' name='price' value='"+data[i]['price']+"'>")
+                                $("#userInput"+i).append("<span style='font-size: 20px;'>Quantity</span>")
+                                $("#userInput"+i).append("<input type='button' value='-' class='qtyminus' field='quantity' />")
+                                $("#userInput"+i).append("<input  readonly type='text' name='quantity' value='0' class='qty' />")
+                                $("#userInput"+i).append("<input type='button' value='+' class='qtyplus' field='quantity' />")
+                                $("#forms"+i).append("<select id='select"+i+"' name='size'>")
+                                $("#select"+i).append("<option value='small'>Small</option>")
+                                $("#select"+i).append("<option value='medium'>Medium</option>")
+                                $("#select"+i).append("<option value='large'>Large</option>")
+                                $("#select"+i).append("<option value='xl'>XL</option>")
+                                $("#forms"+i).append("<input style='margin-left: 5px;' type='submit' value='Add to Cart'>")
+                                
+                                
+                                $("#panels"+i).append("<div id='images"+i+"' style='width:50%;'></div>")
+                                $("#images"+i).append("<img class=\"productImage\" src=\""+data[i]["picture"]+"\">")
+                            
                                 
                             }
-                           
+                           console.log("after page loaded");
+                       
+                            modals.length = 0;
+                            buttons.length = 0;
+                            closeButton.length = 0;
                             
-                            // "<div class = \"innerContainer\">
-                            //             <div>
-                            //                 <img class=\"productImage\" src=\"". $arrivals[$i]["picture"]."\">
-                            //             </div>
-                                        
-                            //             <div class = \"displayVertical\">
-                            //                 <div class = \"nameOfProduct\">". $arrivals[$i]["name"]."</div>
-                            //                 <button  type=\"button\" id='button".$i."' onclick=\"displayModal('button".$i."');\">".$arrivals[$i]["price"]."</button>
-                            //             </div>
-                                      
-                            //           <!-- end of inner product container -->
-                            // </div>";
+                            console.log("clearing arrays")
+                            console.log("modalslength: "+ modals.length)
+                            
+                            console.log("amount of objects= " +Object.keys(data).length )
+                            
+                            for(var i = 0; i < Object.keys(data).length; i++)
+                            {
+                                console.log("inside for loop i=" + i)
+                                modals[i] = document.getElementById("modal"+i)
+                                buttons[i] = document.getElementById("button"+i)
+                                closeButton[i] = document.getElementById("close"+i)
+                            }
                             
                             
-                           // $("<div id=\"modal".$i."\" class=\"modal\"></div>").appendTo(".rightSide")
-                            
+                            console.log("modalslength: "+ modals.length)
+                            console.log("buttons length: "+ buttons.length)
                             
                         
                     
@@ -347,10 +488,12 @@
               error: function(data) {
                 console.log("There was an error with ajax call!");
                 
-              },
+              }
               
             });	
             }
+            
+            
             
         </script>
     </body>
@@ -358,7 +501,7 @@
 
 <?php
  
- 	function getNewArrivals()
+ 	function getAllProducts()
 	{
 		///echo"inside validate user function";
 		global $dbConn;
