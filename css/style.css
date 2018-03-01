@@ -334,3 +334,12 @@ body{
 }
 .qtyplus { width:25px; height:25px;}
 .qtyminus { width:25px; height:25px;}
+
+table, th, td {
+    
+    color:white;
+}
+
+table{
+  width: 80%;
+}

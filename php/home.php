@@ -25,9 +25,9 @@
                 
                 <div style= "text-align:right;">
                     
-                    <a href="[full link to your Facebook page]">
+                    <a href="cart.php">
                         <img style="padding-right: 40px;" title="checkout" alt="checkout" src="http://cdn.mysitemyway.com/icons-watermarks/flat-circle-white-on-black/bfa/bfa_shopping-cart/bfa_shopping-cart_flat-circle-white-on-black_512x512.png" width="80" height="80" />
-                        </a>
+                    </a>
                    
                 </div>
                 
@@ -83,11 +83,6 @@
                                         <div class = \"nameOfProduct\">". $arrivals[$i]["name"]."</div>
                                         <div class = 'nameOfProduct' style ='margin-top:5px;' >$".$arrivals[$i]["price"]."</div>";
                                         
-                                        if($arrivals[$i]["quantity"] < 2)
-                                        {
-                                            echo "
-                                            <div style='background-color: red; color: black; margin-bottom: 10px;'>Only 2 left in stock!</div>";
-                                        }
                                     echo"</div>
                                   
                                   <!-- end of inner product container -->

@@ -9,23 +9,39 @@
     
 		session_start();
         
-        
-        if (!isset($_SESSION['orders']))
-        { 
-            $_SESSION["orders"] = 0;
-        }
-        
+    
         
         if(!empty($_POST))
         {
+            echo "inside else post empty?: ". empty($_POST);
+            var_dump($_POST);
+            echo"right after var_dump post <br><br>";
+            if (!isset($_SESSION['orders']))
+            { 
+                $_SESSION["orders"] = 0;
+            }
+        
             $string = strval($_SESSION["orders"])."a";
             $_SESSION[$string]= array("name"=>$_POST["nameProduct"], "price" => $_POST["price"], "size"=>$_POST["size"], "quantity"=>$_POST["quantity"] );
             $_SESSION["orders"]++;
+            
+            header("Location: cart.php");
+            exit();
+            
+        }
+        
+        if($_SESSION["orders"] == 0)
+        {
+            header("Location: home.php");
+            exit();
         }
         
         
         var_dump($_SESSION);
+        
         echo "order items: {$_SESSION['orders']} <br><br>";
+        
+        
         
 	?>
     <body>
@@ -59,8 +75,34 @@
             </div>
             <hr>
             
+           <?php
+           
+           
+           echo "
+                    <table border='1' bordercolor='red' align='center'>
+                        <tr>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Size</th>
+                        </tr>
+                ";
+            for($i = 0; $i < $_SESSION['orders']; $i++)
+            {
+                echo "
+                    <tr>
+                        <td>". $_SESSION[$i.'a']["name"]."</td>
+                        <td>". $_SESSION[$i.'a']["price"]."</td>
+                        <td>". $_SESSION[$i.'a']["quantity"]."</td>
+                        <td>". $_SESSION[$i.'a']["size"]."</td>
+                    </tr>
+                ";
+            }
             
-            
+            echo "</table>";
+           
+           ?>
+          
         </div>
         
     </body>
