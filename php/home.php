@@ -121,7 +121,7 @@
                                                     <span style='font-size: 20px;'>Quantity</span>
                                                     
                                                     <input type='button' value='-' class='qtyminus' field='quantity' />
-                                                    <input  readonly type='text' name='quantity' value='0' class='qty' />
+                                                    <input  readonly type='text' name='quantity' value='1' class='qty' />
                                                     <input type='button' value='+' class='qtyplus' field='quantity' />
                                                 </div>
                                                 

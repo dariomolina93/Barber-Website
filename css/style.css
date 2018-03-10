@@ -335,11 +335,40 @@ body{
 .qtyplus { width:25px; height:25px;}
 .qtyminus { width:25px; height:25px;}
 
-table, th, td {
-    
-    color:white;
+
+h3{
+  color:white;
+  margin-top:10px;
+  margin-bottom: 10px;
 }
 
-table{
+h4{
+    color: white;
+    margin-top: 12px;
+    padding-left: 5px;
+
+}
+
+.outer-container{
+  display:flex;
+  background-color: #8a8a8a69; 
+  border:1px solid black;
+  margin-left: auto;
+  margin-right:auto;
   width: 80%;
+}
+
+.submit{
+  width: 200px;
+  height:40px;
+  margin-top:0px !important;
+      font-family: 'Century Gothic', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    background-color: #e7e7e7;
+    color: #555555;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
 }
