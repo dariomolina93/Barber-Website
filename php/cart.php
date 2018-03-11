@@ -2,7 +2,7 @@
     <head>
         <title>Gomez The Barber</title>
         <link rel="stylesheet" href="../css/style.css">
-        
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     </head>
     
     <?php
@@ -70,10 +70,10 @@
                {
                    echo"
                    <div class='outer-container'>
-                        <div style='width: 30%; margin-left:128px;' >
-                            <input type='button' value='-' class='qtyminus' field='quantity' />
+                        <div style='width: 30%; margin-left:128px; margin-top: 8px;' >
+                            <input type='button' value='-' class='qtyminus' field='quantity".$i."' />
                             <input  readonly type='text' name='quantity".$i."' value='1' class='qty' />
-                            <input type='button' value='+' class='qtyplus' field='quantity' />
+                            <input type='button' value='+' class='qtyplus' field='quantity".$i."' />
                         </div>
                         
                         <div style='width: 30%;'>
@@ -82,11 +82,14 @@
                         </div>
                         
                         <div style=' width: 16%;'>
-                            <h3 style='color: white;'>$". $_SESSION[$i.'a']["price"]."</h3>
+                            <h3 id='price".$i."' style='color: white;'>$". $_SESSION[$i.'a']["price"]."</h3>
+                            <input type='hidden' name='price".$i."' value = '". $_SESSION[$i.'a']["name"]."'>
+                            
                         </div>
-                        <span style='margin-top: 3px;' id='close".$i."' class='close' onclick=\"closeModal('close".$i."');\">&times;</span>
+                        <span id='close".$i."' style='margin-top: 3px;' id='close".$i."' class='close'>&times;</span>
                    </div>
                    ";
+                   
                }
                
                ?>
@@ -97,7 +100,7 @@
                             <h4>(Not including shipping and taxes):</h4>
                         </div>
                         <div style='width: 20%;'>
-                            <h3 style='text-align: right;'><?php
+                            <h3 id="totalCost" style='text-align: right;'><?php
                                 $total = 0;
                                 
                                 for($i = 0; $i < $_SESSION['orders']; $i++)
@@ -119,5 +122,171 @@
           
         </div>
         
+<script>
+    jQuery(document).ready(function(){
+        
+        $("span").click(function(e) {
+            
+            var id= $(this).attr("id");
+            console.log("index is: "+ id + "typeof" + typeof(id) )
+            
+            
+            $.ajax({
+            url :  "retrieveProducts.php",
+            type: 'POST',
+            data: {category: "removeProduct", index: id },
+            dataType: "json",
+            success: function(data) {
+                location.reload();
+
+            },
+              error:function()
+             {
+                console.log("error getting product quantity in cart")     
+             }
+        })
+        })
+        
+        
+        
+        
+        
+        
+        function calculateTotal(x)
+        {
+            var total = 0;
+            for(var i = 0; i < x; i++)
+            {
+                var elementText = $("#price"+i).text()
+                var price = elementText.substring(1,elementText.length)
+                
+                console.log("price"+i+ "= " + price)
+                total += parseFloat(price)
+            }
+            
+            $("#totalCost").html("$"+total.toFixed(2))
+        }
+        
+    // This button will increment the value
+    $('.qtyplus').click(function(e){
+        
+        console.log("clicked plus button")
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        fieldName = $(this).attr('field');
+        
+        var product_name = $('input[name=name'+fieldName[fieldName.length - 1]+']').attr("value")
+        $.ajax({
+            url :  "retrieveProducts.php",
+            type: 'POST',
+            data: {category: "quantity", productName: product_name},
+            dataType: "json",
+            success: function(data) {
+                console.log( data);
+                
+                var currentVal = parseFloat($('input[name='+fieldName+']').val());
+        
+                //console.log("current val: " + currentVal);
+                // If is not undefined
+                
+                if (!isNaN(currentVal)) 
+                {
+                    
+                    currentVal++;
+                    
+                    if( currentVal > parseFloat(data["quantity"]))
+                    {
+                        console.log("currentvale > quantity")
+                        $('input[name='+fieldName+']').val(parseFloat(data["quantity"]));
+                        $("#price"+fieldName[fieldName.length - 1]).html("$"+(parseFloat(data["quantity"]) * data["price"]).toFixed(2))
+                        calculateTotal(data["totalItems"])
+                    }   
+                    else
+                    {
+                        $('input[name='+fieldName+']').val(currentVal);
+                        $("#price"+fieldName[fieldName.length - 1]).html("$" +(currentVal * data["price"]).toFixed(2))
+                        calculateTotal(data["totalItems"])
+                    }
+                }        
+                else
+                {
+                    currentVal = 1;
+                    $('input[name='+fieldName+']').val(currentVal);
+                    $("#price"+fieldName[fieldName.length - 1]).html("$" + (currentVal * data["price"]).toFixed(2))
+                    calculateTotal(data["totalItems"])
+                }
+                
+                
+                
+                
+                
+            },
+              error:function()
+             {
+                console.log("error getting product quantity in cart")     
+             }
+        })
+    });
+    // This button will decrement the value till 0
+    $(".qtyminus").click(function(e) {
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        fieldName = $(this).attr('field');
+        var product_name = $('input[name=name'+fieldName[fieldName.length - 1]+']').attr("value")
+        
+        $.ajax({
+            url :  "retrieveProducts.php",
+            type: 'POST',
+            data: {category: "quantity", productName: product_name},
+            dataType: "json",
+            success: function(data) {
+                console.log( data);
+                
+                var currentVal = parseFloat($('input[name='+fieldName+']').val());
+        
+                //console.log("current val: " + currentVal);
+                // If is not undefined
+                
+                if (!isNaN(currentVal) && currentVal > 1) 
+                {
+                    
+                    currentVal--;
+                    
+                    if( currentVal > parseFloat(data["quantity"]))
+                    {
+                        console.log("currentvale > quantity")
+                        $('input[name='+fieldName+']').val(parseFloat(data["quantity"]));
+                        $("#price"+fieldName[fieldName.length - 1]).html("$"+(parseFloat(data["quantity"]) * data["price"]).toFixed(2))
+                        calculateTotal(data["totalItems"])
+                    }   
+                    else
+                    {
+                        $('input[name='+fieldName+']').val(currentVal);
+                        $("#price"+fieldName[fieldName.length - 1]).html("$" +(currentVal * data["price"]).toFixed(2))
+                        calculateTotal(data["totalItems"])
+                    }
+                }        
+                else
+                {
+                    currentVal = 1;
+                    $('input[name='+fieldName+']').val(currentVal);
+                    $("#price"+fieldName[fieldName.length - 1]).html("$" + (currentVal * data["price"]).toFixed(2))
+                    calculateTotal(data["totalItems"])
+                }
+                
+            },
+              error:function()
+             {
+                console.log("error getting product quantity in cart")     
+             }
+        })
+    });
+});
+
+        
+            
+</script>
     </body>
 </html>

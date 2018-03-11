@@ -8,16 +8,49 @@
     if($_POST["category"] == "count")
     {
     	//echo"inside if";
-    	getProductQuantity();
+    	getAllProductQuantity();
     }	
+    else if($_POST["category"] == "quantity")
+    {
+    	getProductQuantity();
+    }
+    else if($_POST["category"] == "removeProduct")
+    {
+    	removeProductSession();
+    }
     else
     {
     	//echo"inside else";
     	retrieveProducts();
     }
 
+	function removeProductSession()
+	{
+		unset($_SESSION[$_POST["index"]."a"]);
+		$_SESSION["orders"]--;
+		header('Content-Type: application/json');
+		echo json_encode("{'session_size':".$_SESSION["orders"]."}");
+		
+	}
 
 	function getProductQuantity()
+	{
+		global $conn;
+		$query = "select quantity, price from Products where name='".$_POST["productName"]."'";
+	    
+	    $statement = $conn->prepare($query);
+			
+		$statement->execute();  
+			
+		$row = $statement -> fetch();
+	
+		$array = array("quantity" => $row["quantity"], "price" => $row["price"], "totalItems" => $_SESSION["orders"]);
+		
+		header('Content-Type: application/json');
+		echo json_encode($array);
+	}
+	
+	function getAllProductQuantity()
 	{
 		global $conn;
 		$query = "select count(id) as count from Products";
