@@ -20,14 +20,14 @@
             <div style='display:flex;'>
                 
                 <div id="imageLogo">
-                    <img src="../images/barberLogo.jpg" alt="Logo" height="250" width="700">
+                    <img class = 'imageBarber' src="../images/barberLogo.jpg" alt="Logo">
                 </div>
                 
                 <div style= "text-align:right;">
                     
-                    <a href="[full link to your Facebook page]">
+                    <a href="cart.php">
                         <img style="padding-right: 40px;" title="checkout" alt="checkout" src="http://cdn.mysitemyway.com/icons-watermarks/flat-circle-white-on-black/bfa/bfa_shopping-cart/bfa_shopping-cart_flat-circle-white-on-black_512x512.png" width="80" height="80" />
-                        </a>
+                    </a>
                    
                 </div>
                 
@@ -80,7 +80,7 @@
                             
                             echo "
                        
-                            <!-- The Modal -->
+                             <!-- The Modal -->
                             <div id=\"modal".$i."\" class=\"modal\">
                             
                               <!-- Modal content -->
@@ -93,28 +93,38 @@
                                         
                                         <!-- Left side (description) -->
                                         <div style='width:50%;'>
-                                            <h2 class = 'nameTitle'>".$arrivals[$i]["name"]."</h2>
-                                            <hr style='width: 90%;'>
-                                            <form method='POST' action='cart.php'>
+                                            
+                                        <h2 class = 'nameTitle'>".$arrivals[$i]["name"]."</h2>
+                                                
+                                        <hr style='width: 90%;'>
+                                        <form method='POST' action='cart.php'>
                                                 <div class='price'>$".$arrivals[$i]['price']."</div>
                                                 <input type='hidden' name='nameProduct' value='".$arrivals[$i]['name']."'>
                                                 <input type='hidden' name='price' value='".$arrivals[$i]['price']."'>
-                                                
+                                            
                                             
                                                 <div style='margin-top: 10px;'>
                                                     <span style='font-size: 20px;'>Quantity</span>
+                                                    
                                                     <input type='button' value='-' class='qtyminus' field='quantity' />
-                                                    <input  readonly type='text' name='quantity' value='0' class='qty' />
+                                                    <input  readonly type='text' name='quantity' value='1' class='qty' />
                                                     <input type='button' value='+' class='qtyplus' field='quantity' />
-                                                </div>
+                                                </div>";
                                                 
-                                                <select name='size'>
-                                                    <option value='small'>Small</option>
-                                                    <option value='medium'>Medium</option>
-                                                    <option value='large'>Large</option>
-                                                    <option value='xl'>XL</option>
-                                                </select>
+                                                if($arrivals[$i]["sizeApplicable"])
+                                                {
+                                                    echo "
+                                                    <select name='size'>
+                                                        <option value='Small'>Small</option>
+                                                        <option value='Medium'>Medium</option>
+                                                        <option value='Large'>Large</option>
+                                                        <option value='XL'>XL</option>
+                                                    </select>";
+                                                }
                                                 
+                                            
+                            
+                                                echo "
                                                 <input type='submit' value='Add to Cart'>
                                             </form>
                                         </div>
@@ -364,11 +374,17 @@
                                 $("#userInput"+i).append("<input type='button' value='-' class='qtyminus' field='quantity' />")
                                 $("#userInput"+i).append("<input  readonly type='text' name='quantity' value='0' class='qty' />")
                                 $("#userInput"+i).append("<input type='button' value='+' class='qtyplus' field='quantity' />")
-                                $("#forms"+i).append("<select id='select"+i+"' name='size'>")
-                                $("#select"+i).append("<option value='small'>Small</option>")
-                                $("#select"+i).append("<option value='medium'>Medium</option>")
-                                $("#select"+i).append("<option value='large'>Large</option>")
-                                $("#select"+i).append("<option value='xl'>XL</option>")
+                                
+                            
+                                if(parseInt(data[i]["sizeApplicable"]))
+                                {
+                                    $("#forms"+i).append("<select id='select"+i+"' name='size'>")
+                                    $("#select"+i).append("<option value='Small'>Small</option>")
+                                    $("#select"+i).append("<option value='Medium'>Medium</option>")
+                                    $("#select"+i).append("<option value='Large'>Large</option>")
+                                    $("#select"+i).append("<option value='XL'>XL</option>")
+                                }
+                                
                                 $("#forms"+i).append("<input style='margin-left: 5px;' type='submit' value='Add to Cart'>")
                                 
                                 
@@ -407,7 +423,7 @@
                 else{
                             console.log("Inside else statement")
         
-                                 $( "<div class='loopDiv displayHorizontal' style='display: flex; margin-bottom: 20px;'></div>" ).appendTo( "#rightSide" );
+                            $( "<div class='loopDiv displayHorizontal' style='display: flex; margin-bottom: 20px;'></div>" ).appendTo( "#rightSide" );
                             
                             
                             for(var i = 0; i < Object.keys(data).length; i++)
@@ -439,11 +455,16 @@
                                 $("#userInput"+i).append("<input type='button' value='-' class='qtyminus' field='quantity' />")
                                 $("#userInput"+i).append("<input  readonly type='text' name='quantity' value='0' class='qty' />")
                                 $("#userInput"+i).append("<input type='button' value='+' class='qtyplus' field='quantity' />")
-                                $("#forms"+i).append("<select id='select"+i+"' name='size'>")
-                                $("#select"+i).append("<option value='small'>Small</option>")
-                                $("#select"+i).append("<option value='medium'>Medium</option>")
-                                $("#select"+i).append("<option value='large'>Large</option>")
-                                $("#select"+i).append("<option value='xl'>XL</option>")
+                                
+                                console.log("Type of sizeApplicable from response: "+ typeof(data[i]["sizeApplicable"]))
+                                 if(parseInt(data[i]["sizeApplicable"]))
+                                {
+                                    $("#forms"+i).append("<select id='select"+i+"' name='size'>")
+                                    $("#select"+i).append("<option value='Small'>Small</option>")
+                                    $("#select"+i).append("<option value='Medium'>Medium</option>")
+                                    $("#select"+i).append("<option value='Large'>Large</option>")
+                                    $("#select"+i).append("<option value='XL'>XL</option>")
+                                }
                                 $("#forms"+i).append("<input style='margin-left: 5px;' type='submit' value='Add to Cart'>")
                                 
                                 
@@ -516,7 +537,7 @@
 		$array;
 		while($row = $statement -> fetch())
 			{
-			    $array[$i] = array("name" => $row["name"], "picture"=> $row["picture"], "quantity"=>$row["quantity"],"price"=>$row["price"]);
+			    $array[$i] = array("name" => $row["name"], "picture"=> $row["picture"], "quantity"=>$row["quantity"],"price"=>$row["price"], "sizeApplicable"=>$row["sizeApplicable"]);
 			    $i++;
 			}
 		return $array;

@@ -80,7 +80,7 @@
 		$array;
 		while($row = $statement -> fetch())
 			{
-				  $array[$i] = array("name" => $row["name"], "picture"=> $row["picture"], "quantity"=>$row["quantity"],"price"=>$row["price"]);
+				  $array[$i] = array("name" => $row["name"], "picture"=> $row["picture"], "quantity"=>$row["quantity"],"price"=>$row["price"],"sizeApplicable"=>$row["sizeApplicable"]);
 				  $i++;
 			}
 			

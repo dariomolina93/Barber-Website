@@ -10,8 +10,8 @@
              <!-- Image div -->
             <div style='display:flex;'>
                 
-                <div id="imageLogo">
-                    <img src="../images/barberLogo.jpg" alt="Logo" height="250" width="700">
+               <div id="imageLogo">
+                    <img class = 'imageBarber' src="../images/barberLogo.jpg" alt="Logo">
                 </div>
                 
                 <div style= "text-align:right;">

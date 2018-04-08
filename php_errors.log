@@ -76,3 +76,6 @@ Stack trace:
 [22-Feb-2018 01:56:58 UTC] PHP Stack trace:
 [22-Feb-2018 01:56:58 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/cart.php:0
 [22-Feb-2018 07:17:29 UTC] PHP Parse error:  syntax error, unexpected ')' in /home/ubuntu/workspace/php/cart.php on line 69
+[20-Mar-2018 23:08:24 UTC] PHP Fatal error:  Call to undefined function vardump() in /home/ubuntu/workspace/php/cart.php on line 25
+[20-Mar-2018 23:08:24 UTC] PHP Stack trace:
+[20-Mar-2018 23:08:24 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/cart.php:0

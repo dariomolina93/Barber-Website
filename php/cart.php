@@ -8,6 +8,7 @@
     <?php
     
 		session_start();
+		
         
         if(!empty($_POST))
         {
@@ -21,6 +22,7 @@
             $_SESSION["orders"]++;
             
             header("Location: cart.php");
+            
             exit;
         }
         
@@ -32,21 +34,13 @@
         
 	?>
     <body>
-        <div id="cotainer">
+        <div id="container">
             
             <!-- Image div -->
-            <div style='display:flex;'>
+            <div>
                 
-                <div id="imageLogo">
+                <div id="imageLogo" style="padding-left: 0px;">
                     <img class = 'imageBarber' src="../images/barberLogo.jpg" alt="Logo">
-                </div>
-                
-                <div style= "text-align:right;">
-                    
-                    <a href="cart.php">
-                        <img style="padding-right: 40px;" title="checkout" alt="checkout" src="http://cdn.mysitemyway.com/icons-watermarks/flat-circle-white-on-black/bfa/bfa_shopping-cart/bfa_shopping-cart_flat-circle-white-on-black_512x512.png" width="80" height="80" />
-                    </a>
-                   
                 </div>
                 
             </div>
@@ -72,18 +66,27 @@
                    <div class='outer-container'>
                         <div style='width: 30%; margin-left:128px; margin-top: 8px;' >
                             <input type='button' value='-' class='qtyminus' field='quantity".$i."' />
-                            <input  readonly type='text' name='quantity".$i."' value='1' class='qty' />
+                            <input  readonly type='text' name='quantity".$i."' value='".$_SESSION[$i.'a']["quantity"]."' class='qty' />
                             <input type='button' value='+' class='qtyplus' field='quantity".$i."' />
                         </div>
                         
                         <div style='width: 30%;'>
-                            <h3 style='color: white;'>". $_SESSION[$i.'a']["name"]."</h3>
-                            <input type='hidden' name='name".$i."' value = '". $_SESSION[$i.'a']["name"]."'>
+                            <input type='hidden' name='name".$i."' value = '". $_SESSION[$i.'a']["name"]."'>";
+                            
+                            if(!empty($_SESSION[$i.'a']["size"]))
+                                echo "<h3 style='color: white;'>". $_SESSION[$i.'a']["name"]."(".$_SESSION[$i.'a']["size"].")</h3>";
+                            
+                            else 
+                                echo "<h3 style='color: white;'>". $_SESSION[$i.'a']["name"]."</h3>";
+                            
+                         
+                         //number_format((float)$_SESSION[$i.'a']["price"], 2, '.', '')   
+                    echo"
                         </div>
                         
                         <div style=' width: 16%;'>
-                            <h3 id='price".$i."' style='color: white;'>$". $_SESSION[$i.'a']["price"]."</h3>
-                            <input type='hidden' name='price".$i."' value = '". $_SESSION[$i.'a']["name"]."'>
+                            <h3 id='price".$i."' style='color: white;'>$". number_format(((float)$_SESSION[$i.'a']["price"] * (float)$_SESSION[$i.'a']["quantity"]), 2, '.', '') ."</h3>
+                            <input type='hidden' name='price".$i."' value = '". $_SESSION[$i.'a']["price"]."'>
                             
                         </div>
                         <span id='close".$i."' style='margin-top: 3px;' id='close".$i."' class='close'>&times;</span>
@@ -107,15 +110,16 @@
                                 {
                                     $total += $_SESSION[$i.'a']["price"];
                                 }
-                                echo "$".$total;
+                                
+                                echo "$".number_format((float)$total, 2, '.', '') ;
                             ?></h3>
                         </div>
                        
                    </div>
                    
                    <div style="display:flex;">
-                       <button style='width: 200px; height: 40px; margin-left:auto;'><a href='home.php' style='color: white;'>Continue Shopping</a></button>
-                       <input style="margin-right:auto; margin-left:15px;"class='submit' type="submit" value="Checkout">
+                       <button style='width: 200px; height: 40px; margin-left:auto;'><a href='home.php' style='color: #555555;'>Continue Shopping</a></button>
+                       <input style="margin-right:auto; margin-left:15px; background-color: #555555; color: white;"class='submit' type="submit" value="Checkout">
                    </div>
                </form>
            </div>

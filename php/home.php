@@ -12,6 +12,7 @@
         $dbConn = getDatabaseConnection();
         
         $arrivals = getNewArrivals();
+        //var_dump($arrivals);
 	?>
     <body>
         <div id="cotainer">
@@ -123,15 +124,21 @@
                                                     <input type='button' value='-' class='qtyminus' field='quantity' />
                                                     <input  readonly type='text' name='quantity' value='1' class='qty' />
                                                     <input type='button' value='+' class='qtyplus' field='quantity' />
-                                                </div>
+                                                </div>";
                                                 
-                                                <select name='size'>
-                                                <option value='small'>Small</option>
-                                                <option value='medium'>Medium</option>
-                                                <option value='large'>Large</option>
-                                                <option value='xl'>XL</option>
-                                              </select>
                                                 
+                                                if($arrivals[$i]["sizeApplicable"])
+                                                {
+                                                    echo"
+                                                    <select name='size'>
+                                                        <option value='Small'>Small</option>
+                                                        <option value='Medium'>Medium</option>
+                                                        <option value='Large'>Large</option>
+                                                        <option value='XL'>XL</option>
+                                                    </select>";
+                                                }
+                                                
+                                            echo "    
                                                 <input type='submit' value='Add to Cart'>
                                             </form>
                                         </div>
@@ -300,7 +307,7 @@
             $('input[name='+fieldName+']').val(currentVal + 1);
         } else {
             // Otherwise put a 0 there
-            $('input[name='+fieldName+']').val(0);
+            $('input[name='+fieldName+']').val(1);
         }
     });
     // This button will decrement the value till 0
@@ -312,12 +319,12 @@
         // Get its current value
         var currentVal = parseInt($('input[name='+fieldName+']').val());
         // If it isn't undefined or its greater than 0
-        if (!isNaN(currentVal) && currentVal > 0) {
+        if (!isNaN(currentVal) && currentVal > 1) {
             // Decrement one
             $('input[name='+fieldName+']').val(currentVal - 1);
         } else {
             // Otherwise put a 0 there
-            $('input[name='+fieldName+']').val(0);
+            $('input[name='+fieldName+']').val(1);
         }
     });
 });
@@ -346,7 +353,7 @@
 		$array;
 		while($row = $statement -> fetch())
 			{
-			    $array[$i] = array("name" => $row["name"], "picture"=> $row["picture"], "quantity"=>$row["quantity"],"price"=>$row["price"]);
+			    $array[$i] = array("name" => $row["name"], "picture"=> $row["picture"], "quantity"=>$row["quantity"],"price"=>$row["price"], "sizeApplicable"=>(int)$row["sizeApplicable"]);
 			    $i++;
 			}
 		return $array;

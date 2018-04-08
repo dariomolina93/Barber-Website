@@ -9,5 +9,6 @@ create table if not exists Products(
     picture varchar(500) not null,
     quantity integer not null check( quantity > 0),
     price double not null check(price > 0.0),
-    category varchar(100) not null
+    category varchar(100) not null,
+    sizeApplicable integer not null
 );
