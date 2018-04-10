@@ -72,7 +72,7 @@
                                 
                                 <div class = \"displayVertical\">
                                     <div class = \"nameOfProduct\">". $arrivals[$i]["name"]."</div>
-                                    <div class = 'nameOfProduct' style ='margin-top:5px;' >$".$arrivals[$i]["price"]."</div>
+                                    <div class = 'nameOfProduct' style ='margin-top:5px;' >$".number_format((float)$arrivals[$i]['price'],2, '.', '')."</div>
                                 </div>
                               
                               <!-- end of inner product container -->
@@ -98,9 +98,9 @@
                                                 
                                         <hr style='width: 90%;'>
                                         <form method='POST' action='cart.php'>
-                                                <div class='price'>$".$arrivals[$i]['price']."</div>
+                                                <div class='price'>$".number_format((float)$arrivals[$i]['price'],2, '.', '')."</div>
                                                 <input type='hidden' name='nameProduct' value='".$arrivals[$i]['name']."'>
-                                                <input type='hidden' name='price' value='".$arrivals[$i]['price']."'>
+                                                <input type='hidden' name='price' value='".number_format((float)$arrivals[$i]['price'],2, '.', '')."'>
                                             
                                             
                                                 <div style='margin-top: 10px;'>
@@ -350,7 +350,7 @@
                                 //console.log("after appending .displayVertical to .innerContainer i=" + i)
                                 $("#displayVertical"+i).append("<div id='nameOfProduct"+i+"' class = \"nameOfProduct\">"+ data[i]["name"] +"</div>")
                                 //console.log("after appending .nameOfProduct to .displayVertical i=" + i)
-                                $("#displayVertical"+i).append("<div class = 'nameOfProduct' style ='margin-top:5px;' >$"+ data[i]["price"] +"</div>")
+                                $("#displayVertical"+i).append("<div class = 'nameOfProduct' style ='margin-top:5px;' >$"+ parseFloat(data[i]["price"]).toFixed(2) +"</div>")
                                 //console.log("after appending button to .displayVertical i=" + i + "\n\n\n")
                                 
                                 $(".loopDiv").append("<div id='modal"+i+"' class=\"modal\"></div>")
@@ -365,11 +365,11 @@
                                 $("#panels"+i).append("<div id='details"+i+"' style='width:50%;'></div>")
                                 $("#details"+i).append("<h2 class = 'nameTitle'>"+data[i]["name"]+"</h2>")
                                 $("#details"+i).append("<hr style='width: 90%;'>")
-                                $("#details"+i).append("<div class='price'>$"+data[i]['price']+"</div>")
+                                $("#details"+i).append("<div class='price'>$"+parseFloat(data[i]["price"]).toFixed(2)+"</div>")
                                 $("#details"+i).append("<form id='forms"+i+"'method='POST' action='cart.php'></form>")
                                 $("#forms"+i).append("<div id='userInput"+i+"' style='margin-top: 10px;'></div>")
                                 $("#forms"+i).append("<input type='hidden' name='nameProduct' value='"+data[i]['name']+"'>")
-                                $("#forms"+i).append("<input type='hidden' name='price' value='"+data[i]['price']+"'>")
+                                $("#forms"+i).append("<input type='hidden' name='price' value='"+parseFloat(data[i]["price"]).toFixed(2)+"'>")
                                 $("#userInput"+i).append("<span style='font-size: 20px;'>Quantity</span>")
                                 $("#userInput"+i).append("<input type='button' value='-' class='qtyminus' field='quantity' />")
                                 $("#userInput"+i).append("<input  readonly type='text' name='quantity' value='0' class='qty' />")
@@ -434,7 +434,7 @@
                                 $("#imageDiv"+i).append("<img class=\"productImage\""+i+" src=\"" + data[i]["picture"] + "\">")
                                 $("#button"+i).append("<div id='displayVertical"+i+"' class = \"displayVertical\"></div>")
                                 $("#displayVertical"+i).append("<div id='nameOfProduct"+i+"' class = \"nameOfProduct\">"+ data[i]["name"] +"</div>")
-                                $("#displayVertical"+i).append("<div class = 'nameOfProduct' style ='margin-top:5px;' >$"+ data[i]["price"] +"</div>")
+                                $("#displayVertical"+i).append("<div class = 'nameOfProduct' style ='margin-top:5px;' >$"+ parseFloat(data[i]["price"]).toFixed(2) +"</div>")
                                 
                                 $(".loopDiv").append("<div id='modal"+i+"' class=\"modal\"></div>")
                                 $("#modal"+i).append("<div id='modal-content"+i+"' class=\"modal-content\"></div>")
@@ -446,11 +446,11 @@
                                 $("#panels"+i).append("<div id='details"+i+"' style='width:50%;'></div>")
                                 $("#details"+i).append("<h2 class = 'nameTitle'>"+data[i]["name"]+"</h2>")
                                 $("#details"+i).append("<hr style='width: 90%;'>")
-                                $("#details"+i).append("<div class='price'>$"+data[i]['price']+"</div>")
+                                $("#details"+i).append("<div class='price'>$"+parseFloat(data[i]["price"]).toFixed(2)+"</div>")
                                 $("#details"+i).append("<form id='forms"+i+"'method='POST' action='cart.php'></form>")
                                 $("#forms"+i).append("<div id='userInput"+i+"' style='margin-top: 10px;'></div>")
                                 $("#forms"+i).append("<input type='hidden' name='nameProduct' value='"+data[i]['name']+"'>")
-                                $("#forms"+i).append("<input type='hidden' name='price' value='"+data[i]['price']+"'>")
+                                $("#forms"+i).append("<input type='hidden' name='price' value='"+parseFloat(data[i]["price"]).toFixed(2)+"'>")
                                 $("#userInput"+i).append("<span style='font-size: 20px;'>Quantity</span>")
                                 $("#userInput"+i).append("<input type='button' value='-' class='qtyminus' field='quantity' />")
                                 $("#userInput"+i).append("<input  readonly type='text' name='quantity' value='0' class='qty' />")

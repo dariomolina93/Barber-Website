@@ -27,7 +27,7 @@
                 <div style= "text-align:right;">
                     
                     <a href="cart.php">
-                        <img style="padding-right: 40px;" title="checkout" alt="checkout" src="http://cdn.mysitemyway.com/icons-watermarks/flat-circle-white-on-black/bfa/bfa_shopping-cart/bfa_shopping-cart_flat-circle-white-on-black_512x512.png" width="80" height="80" />
+                        <img style="padding-right: 40px;" title="checkout" alt="checkout" src="cartLogo.png" width="80" height="80" />
                     </a>
                    
                 </div>
@@ -82,7 +82,7 @@
                                     
                                     <div class = \"displayVertical\">
                                         <div class = \"nameOfProduct\">". $arrivals[$i]["name"]."</div>
-                                        <div class = 'nameOfProduct' style ='margin-top:5px;' >$".$arrivals[$i]["price"]."</div>";
+                                        <div class = 'nameOfProduct' style ='margin-top:5px;' >$".number_format((float)$arrivals[$i]['price'],2, '.', '')."</div>";
                                         
                                     echo"</div>
                                   
@@ -113,7 +113,7 @@
                                                 
                                         <hr style='width: 90%;'>
                                         <form method='POST' action='cart.php'>
-                                                <div class='price'>$".$arrivals[$i]['price']."</div>
+                                                <div class='price'>$".number_format((float)$arrivals[$i]['price'],2, '.', '')."</div>
                                                 <input type='hidden' name='nameProduct' value='".$arrivals[$i]['name']."'>
                                                 <input type='hidden' name='price' value='".$arrivals[$i]['price']."'>
                                             
