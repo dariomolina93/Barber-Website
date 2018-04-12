@@ -2,7 +2,7 @@
     <head>
         <title>Gomez The Barber</title>
         <link rel="stylesheet" href="../css/style.css">
-          <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         
     </head>
     
@@ -27,7 +27,7 @@
                 <div style= "text-align:right;">
                     
                     <a href="cart.php">
-                        <img style="padding-right: 40px;" title="checkout" alt="checkout" src="cartLogo.png" width="80" height="80" />
+                        <img  class ='cartLogo' title="checkout" alt="checkout" src="cartLogo.png"/>
                     </a>
                    
                 </div>

@@ -16,9 +16,9 @@
                 
                 <div style= "text-align:right;">
                     
-                    <a href="[full link to your Facebook page]">
-                        <img style="padding-right: 40px;" title="checkout" alt="checkout" src="http://cdn.mysitemyway.com/icons-watermarks/flat-circle-white-on-black/bfa/bfa_shopping-cart/bfa_shopping-cart_flat-circle-white-on-black_512x512.png" width="80" height="80" />
-                        </a>
+                    <a href="cart.php">
+                        <img  class ='cartLogo' title="checkout" alt="checkout" src="cartLogo.png"/>
+                    </a>
                    
                 </div>
                 

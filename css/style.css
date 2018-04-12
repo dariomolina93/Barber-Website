@@ -90,6 +90,33 @@ button:hover {
     background-color: #555555;
     color: white;
 }
+table{border-collapse:collapse;}
+
+tr{
+  color:white;
+  font-size: 20px;
+  border: 1px solid black;
+  height: 10px;
+}
+
+.buttonCheckout{
+  width: 200px; height: 40px; margin-left:auto;
+}
+
+.buttonCheckout:hover{
+  background-color: #e7e7e7;
+  color: #555555;
+}
+
+.cartLogo{
+  padding-right: 40px;
+  width: 60px;
+  height: 60px;
+}
+
+#shipInfo input{
+  height: 25px;
+}
 
 
 h2{
@@ -340,6 +367,7 @@ h3{
   color:white;
   margin-top:10px;
   margin-bottom: 10px;
+  font-size: 25px;
 }
 
 h4{

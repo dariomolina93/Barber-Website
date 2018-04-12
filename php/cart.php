@@ -8,7 +8,7 @@
     <?php
     
 		session_start();
-		
+		//var_dump($_SESSION);
         
         if(!empty($_POST))
         {
@@ -108,7 +108,7 @@
                                 
                                 for($i = 0; $i < $_SESSION['orders']; $i++)
                                 {
-                                    $total += $_SESSION[$i.'a']["price"];
+                                    $total += (float)$_SESSION[$i.'a']["price"] * (float)$_SESSION[$i.'a']["quantity"];
                                 }
                                 
                                 echo "$".number_format((float)$total, 2, '.', '') ;
@@ -118,7 +118,7 @@
                    </div>
                    
                    <div style="display:flex;">
-                       <button style='width: 200px; height: 40px; margin-left:auto;'><a href='home.php' style='color: #555555;'>Continue Shopping</a></button>
+                       <button class = 'buttonCheckout'><a href='home.php' style='color: #555555;'>Continue Shopping</a></button>
                        <input style="margin-right:auto; margin-left:15px; background-color: #555555; color: white;"class='submit' type="submit" value="Checkout">
                    </div>
                </form>
