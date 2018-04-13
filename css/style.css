@@ -337,6 +337,29 @@ body{
     width: 80%;
 }
 
+.accomodateMargin{
+  margin-top: 8px !important;
+  margin-bottom: 7px !important;
+}
+
+.placeOrder{
+  height: 5.5%;
+  /*display:block;*/
+  /*margin-top: 15px !important;*/
+  
+      border-radius: 1px;
+    background-color: #cc0000 !important;
+    border: 0;
+    display: block;
+    width: 100%;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+    text-align: center;
+    margin: 15px 0;
+}
+
 
 /* The Close Button */
 .close {

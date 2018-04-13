@@ -80,3 +80,7 @@ Stack trace:
 [20-Mar-2018 23:08:24 UTC] PHP Stack trace:
 [20-Mar-2018 23:08:24 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/cart.php:0
 [09-Apr-2018 06:49:00 UTC] PHP Parse error:  syntax error, unexpected ';' in /home/ubuntu/workspace/php/home.php on line 127
+[13-Apr-2018 06:16:25 UTC] PHP Fatal error:  Call to undefined function head() in /home/ubuntu/workspace/php/checkout.php on line 13
+[13-Apr-2018 06:16:25 UTC] PHP Stack trace:
+[13-Apr-2018 06:16:25 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/checkout.php:0
+[13-Apr-2018 08:09:17 UTC] PHP Parse error:  syntax error, unexpected '.' in /home/ubuntu/workspace/php/checkout.php on line 164

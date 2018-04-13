@@ -8,7 +8,9 @@
     <?php
     
 		session_start();
-		//var_dump($_SESSION);
+		var_dump($_SESSION);
+		
+		//$_SESSION = array();
         
         if(!empty($_POST))
         {
@@ -22,7 +24,6 @@
             $_SESSION["orders"]++;
             
             header("Location: cart.php");
-            
             exit;
         }
         
@@ -89,7 +90,7 @@
                             <input type='hidden' name='price".$i."' value = '". $_SESSION[$i.'a']["price"]."'>
                             
                         </div>
-                        <span id='close".$i."' style='margin-top: 3px;' id='close".$i."' class='close'>&times;</span>
+                        <span id='close".$i."' style='margin-top: 3px;' class='close'>&times;</span>
                    </div>
                    ";
                    
@@ -112,6 +113,7 @@
                                 }
                                 
                                 echo "$".number_format((float)$total, 2, '.', '') ;
+                                $_SESSION['totalPrice'] = number_format((float)$total, 2, '.', '')
                             ?></h3>
                         </div>
                        
@@ -129,16 +131,18 @@
 <script>
     jQuery(document).ready(function(){
         
+        var idSpan;
+        
         $("span").click(function(e) {
             
-            var id= $(this).attr("id");
-            console.log("index is: "+ id + "typeof" + typeof(id) )
+            idSpan= $(this).attr("id");
+            idSpan = idSpan[idSpan.length - 1];
             
             
             $.ajax({
             url :  "retrieveProducts.php",
             type: 'POST',
-            data: {category: "removeProduct", index: id },
+            data: {category: "removeProduct", index: idSpan },
             dataType: "json",
             success: function(data) {
                 location.reload();
@@ -152,7 +156,7 @@
         })
         
         
-        
+        console.log("index is: "+ idSpan + "typeof" + typeof(idSpan) )
         
         
         

@@ -12,7 +12,7 @@
         $dbConn = getDatabaseConnection();
         
         $arrivals = getNewArrivals();
-        //var_dump($arrivals);
+        var_dump($_SESSION);
 	?>
     <body>
         <div id="cotainer">
