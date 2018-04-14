@@ -3,6 +3,10 @@
         <title>Gomez The Barber</title>
         <link rel="stylesheet" href="../css/style.css">
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        
+          <!-- link to the SqPaymentForm library -->
+  		<script type="text/javascript" src="https://js.squareup.com/v2/paymentform"></script>
+		
     </head>
     <body id = "container">
         <?php
@@ -28,7 +32,7 @@
         <hr style='margin-top: 0px;'>
             
 		
-	    <form method="POST" action="confirmation.php">
+	    <form id="nonce-form" novalidate action="processPayment.php" method="POST"method="POST">
 	        <div id="mainAction" style="display:flex;">
 	            
 	            <div id="shipInfo" style="margin-left: auto; margin-right:60px;">
@@ -74,24 +78,45 @@
                 		
                 		<table bgcolor="#333333">
 	                    <tr>
+	                    	 
 	                        <td>Card Number</td>
-	                        <td><input required type="text" name="cardNumber" placeholder="1234 5678 1234 1234"></td>
+	                        <td><input id="card-number" required type="text" placeholder="1234 5678 1234 1234"></td>
+	                    	
+	                    	
+	              <!--      	<td>Card Number:</td>-->
+          					<!--<td><div id="sq-card-number"></div></td>-->
 	                    </tr>
 	                    <tr>
-	                        <td>Date</td>
-	                        <td><input  required type="text" name="mm/yy" placeholder="mm/yy"></td>
+	                    	
+	                        <td>Expiration Date</td>
+	                        <td><input id="expiration-date"  required type="text" placeholder="mm/yy"></td>
+	                        
+	              <!--          <td>Expiration Date: </td>-->
+          					<!--<td><div id="sq-expiration-date"></div></td>-->
 	                    </tr>
 	                    
 	                    <tr>
+	                    	
 	                        <td>Cvv</td>
-	                        <td><input  required type="text" name="cvv" placeholder="cvv"></td>
+	                        <td><input id="cvv"  required type="text"  placeholder="cvv"></td>
+	                        
+	                        
+	               <!--          <td>CVV:</td>-->
+          					 <!--<td><div id="sq-cvv"></div></td>-->
 	                    </tr>
 	                    
 	                    <tr>
+	                    	
 	                        <td>Zip Code</td>
-	                        <td><input  required type="text" name="zipCodeCard" placeholder="zip code"></td>
+	                        <td><input id="postal-code" required type="text" placeholder="zip code"></td>
+	                        
+	                        
+	              <!--          <td>Postal Code:</td>-->
+          					<!--<td><div id="sq-postal-code"></div></td>-->
 	                    </tr>
 	                </table>
+	                
+	                <input type='hidden' id='card-nonce' name='nonce'>
                 	</div>
 	                
 	            </div>
@@ -139,15 +164,15 @@
 	                	<hr>
 	                	<div style='display:flex;'>
 	                		<h4 class = 'accomodateMargin'>Subtotal</h4>
-	                		<h4 class = 'accomodateMargin' style='margin-left: auto;'>$".$_SESSION["totalPrice"]."</h4>
+	                		<h4 id='subTotal' class = 'accomodateMargin' style='margin-left: auto;'>$".$_SESSION["totalPrice"]."</h4>
 	                	</div>
 	                	<div style='display:flex;'>
 	                		<h4 class = 'accomodateMargin'>Shipping</h4>
-	                		<h4 class = 'accomodateMargin' style='margin-left: auto;'>$5.00</h4>
+	                		<h4 id='shipping' class = 'accomodateMargin' style='margin-left: auto;'>$5.00</h4>
 	                	</div>
 	                	<div style='display:flex;'>
 	                		<h4 class = 'accomodateMargin'>Tax</h4>
-	                		<h4 class = 'accomodateMargin' style='margin-left: auto;'>$0.00</h4>
+	                		<h4 id='tax' class = 'accomodateMargin' style='margin-left: auto;'>$0.00</h4>
 	                	</div>
 	                	<hr>";
 	                	
@@ -158,12 +183,19 @@
 	                	echo"
 	                	<div style='display:flex; margin-top: -8px;'>
 	                		<h3>Total</h3>
-	                		<h3 style='margin-left: auto;'>$".$x."</h3>
+	                		<h3 id='totalPrice' style='margin-left: auto;'>$".$x."</h3>
 	                	</div>
 	                	
-	                	<textarea style='margin: 0px; width: 224px; height: 52px;' name='textAreaComment'></textarea>
+	                	<textarea style='margin: 0px; width: 224px; height: 52px;' name='textAreaComment' placeholder='Add additional note to GomezTheBarber(optional)'></textarea>";
 	                	
-	                	<input class='placeOrder' type='submit' value='Place Order'>
+	                	//<input class='placeOrder' type='submit' value='Place Order'>
+	                	
+	                	echo"
+	                	<button id='sq-creditcard' class='button-credit-card' onclick='requestCardNonce(event)'>
+        					Pay with card
+            			</button>
+	                	
+
 	                   ";
             		
                 	
@@ -174,7 +206,9 @@
 	        </div>
 	        
 	    </form>
-        
+	    
+      <!-- link to the local SqPaymentForm initialization -->
+		<script type="text/javascript" src="../js/sqpaymentform.js"></script>
     </body>
 		
 </html>
