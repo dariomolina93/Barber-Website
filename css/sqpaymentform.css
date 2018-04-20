@@ -1,0 +1,28 @@
+
+
+/* Define how SqPaymentForm iframes should look when they have focus */
+.sq-input--focus {
+  /*outline: 5px auto rgb(59, 153, 252);*/
+}
+
+/* Define how SqPaymentForm iframes should look when they contain invalid values */
+.sq-input--error {
+  outline: 5px auto rgb(255, 97, 97);
+}
+
+/* Customize the "Pay with Credit Card" button */
+.button-credit-card {
+  min-width: 200px;
+  min-height: 20px;
+  margin: 5px;
+  line-height: 20px;
+  box-shadow: 2px 2px 1px rgb(200, 200, 200);
+  background: rgb(255, 255, 255);
+  border-radius: 5px;
+  border: 1px solid rgb(200, 200, 200);
+  font-weight: bold;
+  cursor:pointer;
+  margin-left:17px;
+  margin-top: 8px;
+  
+}

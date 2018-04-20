@@ -1,13 +1,9 @@
 <?php
-require '/home/ubuntu/workspace/vendor/autoload.php';
+require '../vendor/autoload.php';
 session_start();
-    
-// echo"right before for loop";
-//   foreach($_SESSION["apiResult"] as $key => $value) {
-//   echo "$key is at $value";
-// }
 
-//var_dump($_POST);
+
+
 
 # Replace these values. You probably want to start with your Sandbox credentials
 # to start: https://docs.connect.squareup.com/articles/using-sandbox/
@@ -23,9 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
   http_response_code(405);
   //return;
   
-  //adding this section to create 
-  header('Content-Type: application/json');
-  echo json_encode("{\"error\": \"request not allowed, no POST request.\"");
 }
 
 # Fail if the card form didn't send a value for `nonce` to the server
@@ -34,9 +27,7 @@ if (is_null($nonce)) {
   //echo "Invalid card data";
   http_response_code(422);
   //return;
-  
-  header('Content-Type: application/json');
-  echo json_encode("{\"error\": \"nonce not present\"}");
+
 }
 
 \SquareConnect\Configuration::getDefaultConfiguration()->setAccessToken($access_token);
@@ -50,12 +41,7 @@ try {
       in_array('CREDIT_CARD_PROCESSING', $capabilities);
   }));
 } catch (\SquareConnect\ApiException $e) {
-  echo "Caught exception!<br/>";
-  print_r("<strong>Response body:</strong><br/>");
-  echo "<pre>"; var_dump($e->getResponseBody()); echo "</pre>";
-  echo "<br/><strong>Response headers:</strong><br/>";
-  echo "<pre>"; var_dump($e->getResponseHeaders()); echo "</pre>";
-  exit(1);
+  echo $e->getMessage();
 }
 $transactions_api = new \SquareConnect\Api\TransactionsApi();
 # To learn more about splitting transactions with additional recipients,
@@ -80,34 +66,12 @@ $request_body = array (
 # a 200-level HTTP code. This block catches any exceptions that occur from the request.
 try {
   $result = $transactions_api->charge($location->getId(), $request_body);
-  //echo "<pre>";
-  //echo $result;
-  //echo "</pre>";
   
-  //$_SESSION["apiResult"] = $result;
-  
-  
-  
-//   foreach($_SESSION["apiResult"] as $key => $value) {
-//   echo "$key is at $value";
-// }
-  
+  $_SESSION['squareResult'] = $result;
   
   echo $result;
-  // header('Content-Type: application/json');
-  // echo json_encode($result);
   
 } catch (\SquareConnect\ApiException $e) {
 
   echo $e->getMessage();
-  //echo "<br/><strong>Response headers:</strong><br/>";
-  //echo "<pre>"; var_dump($e->getResponseHeaders()); echo "</pre>";
-  
-  $_SESSION["apiError"] = $e->getMessage();
-  
-  // header('Content-Type: application/json');
-  // echo json_encode($e->getMessage());
-  
-  
-  //echo "AMOUNT ENTERED FOR REQUEST: ".(float)$_POST["amount"] * 100;
 }

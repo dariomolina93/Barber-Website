@@ -8,8 +8,9 @@
     <?php
     
 		session_start();
-		var_dump($_SESSION);
+		//var_dump($_SESSION);
 		
+		//var_dump($_POST);
 		//$_SESSION = array();
         
         if(!empty($_POST))
@@ -120,7 +121,7 @@
                    </div>
                    
                    <div style="display:flex;">
-                       <button class = 'buttonCheckout'><a href='home.php' style='color: #555555;'>Continue Shopping</a></button>
+                       <button type='button' class = 'buttonCheckout' onclick='backToHome()'>Continue Shopping</button>
                        <input style="margin-right:auto; margin-left:15px; background-color: #555555; color: white;"class='submit' type="submit" value="Checkout">
                    </div>
                </form>
@@ -129,6 +130,11 @@
         </div>
         
 <script>
+
+    function backToHome()
+    {
+        window.location.replace("home.php");
+    }
     jQuery(document).ready(function(){
         
         var idSpan;
@@ -155,8 +161,6 @@
         })
         })
         
-        
-        console.log("index is: "+ idSpan + "typeof" + typeof(idSpan) )
         
         
         
@@ -185,6 +189,7 @@
         fieldName = $(this).attr('field');
         
         var product_name = $('input[name=name'+fieldName[fieldName.length - 1]+']').attr("value")
+        console.log("product name: " + product_name)
         $.ajax({
             url :  "retrieveProducts.php",
             type: 'POST',

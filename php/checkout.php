@@ -6,6 +6,8 @@
         
           <!-- link to the SqPaymentForm library -->
   		<script type="text/javascript" src="https://js.squareup.com/v2/paymentform"></script>
+  		
+  		<link rel="stylesheet" type="text/css" href="../css/sqpaymentform.css">
 		
     </head>
     <body id = "container">
@@ -32,7 +34,8 @@
         <hr style='margin-top: 0px;'>
             
 		
-	    <form id="nonce-form" novalidate action="processPayment.php" method="POST"method="POST">
+	    <form id="nonce-form" action="confirmation.php" method="POST">
+	    	<div id="error" class="error"></div>
 	        <div id="mainAction" style="display:flex;">
 	            
 	            <div id="shipInfo" style="margin-left: auto; margin-right:60px;">
@@ -49,26 +52,26 @@
 	                    
 	                    <tr>
 	                        <td>Phone</td>
-	                        <td><input required type="text" name="phone" placeholder="(555) 555-5555"></td>
+	                        <td><input required type="text" name="phone" onkeypress="return inputPhone(event)" placeholder="(555) 555-5555"></td>
 	                    </tr>
 	                    
 	                    <tr>
 	                        <td>Street Address</td>
-	                        <td><input required type="text" name="phone" placeholder="123 Main St."></td>
+	                        <td><input required type="text" name="address" placeholder="123 Main St."></td>
 	                    </tr>
 	                    
 	                    <tr>
 	                        <td>Zip Code</td>
-	                        <td><input required type="text" name="phone" placeholder="93933"></td>
+	                        <td><input required type="text" name="zipCode" onkeypress="return inputZipCode(event)" placeholder="93933"></td>
 	                    </tr>
 	                    
 	                    <tr>
 	                        <td>City</td>
-	                        <td><input required type="text" name="phone" placeholder="Atlanta"></td>
+	                        <td><input required type="text" name="city" placeholder="Atlanta"></td>
 	                    </tr>
 	                     <tr>
 	                        <td>State</td>
-	                        <td><input required type="text" name="phone" placeholder="CA"></td>
+	                        <td><input id="state" required type="text" name="state" onkeypress="return inputState(event)"  placeholder="CA"></td>
 	                    </tr>
 	                </table>
 	                
@@ -80,7 +83,7 @@
 	                    <tr>
 	                    	 
 	                        <td>Card Number</td>
-	                        <td><input id="card-number" required type="text" placeholder="1234 5678 1234 1234"></td>
+	                        <td class="tdData"><input id="card-number" required type="text" placeholder="1234 5678 1234 1234"></td>
 	                    	
 	                    	
 	              <!--      	<td>Card Number:</td>-->
@@ -89,7 +92,7 @@
 	                    <tr>
 	                    	
 	                        <td>Expiration Date</td>
-	                        <td><input id="expiration-date"  required type="text" placeholder="mm/yy"></td>
+	                        <td class = "tdData"><input id="expiration-date"  required type="text" placeholder="mm/yy"></td>
 	                        
 	              <!--          <td>Expiration Date: </td>-->
           					<!--<td><div id="sq-expiration-date"></div></td>-->
@@ -98,7 +101,7 @@
 	                    <tr>
 	                    	
 	                        <td>Cvv</td>
-	                        <td><input id="cvv"  required type="text"  placeholder="cvv"></td>
+	                        <td class = "tdData"><input id="cvv"  required type="text"  placeholder="cvv"></td>
 	                        
 	                        
 	               <!--          <td>CVV:</td>-->
@@ -108,7 +111,7 @@
 	                    <tr>
 	                    	
 	                        <td>Zip Code</td>
-	                        <td><input id="postal-code" required type="text" placeholder="zip code"></td>
+	                        <td class = "tdData"><input id="postal-code" required type="text" placeholder="zip code"></td>
 	                        
 	                        
 	              <!--          <td>Postal Code:</td>-->
@@ -186,17 +189,11 @@
 	                		<h3 id='totalPrice' style='margin-left: auto;'>$".$x."</h3>
 	                	</div>
 	                	
-	                	<textarea style='margin: 0px; width: 224px; height: 52px;' name='textAreaComment' placeholder='Add additional note to GomezTheBarber(optional)'></textarea>";
-	                	
-	                	//<input class='placeOrder' type='submit' value='Place Order'>
-	                	
-	                	echo"
-	                	<button id='sq-creditcard' class='button-credit-card' onclick='requestCardNonce(event)'>
-        					Pay with card
-            			</button>
-	                	
-
-	                   ";
+	                	<div style='display: flex'>
+		                	<textarea style='margin: 0px; width: 224px; height: 52px;' name='textAreaComment' placeholder='Add additional note to GomezTheBarber(optional)'></textarea>
+		                	<button type='button' id='sq-creditcard' class='button-credit-card' onclick='requestCardNonce(event)'>Place Order</button>
+	                	</div>
+	                	 ";
             		
                 	
                 	

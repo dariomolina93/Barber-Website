@@ -13,11 +13,6 @@ totalPrice = parseFloat(totalPrice.substr(1,totalPrice.length))
 subTotal = parseFloat(subTotal.substr(1,subTotal.length))
 tax = parseFloat(tax.substr(1,tax.length))
 
-console.log("totalPrice:" + totalPrice + " " + typeof(totalPrice));
-console.log("subtotal: " + subTotal);
-console.log("tax: "+ tax);
-    
-
 
 /*
  * function: requestCardNonce
@@ -28,7 +23,185 @@ console.log("tax: "+ tax);
  * Modifying this function is not required, but can be customized if you
  * wish to take additional action when the form button is clicked.
  */
+ 
+ function verifyFullName()
+ {
+   var name = document.getElementsByName("fullName")[0].value
+   
+   if(name.length < 4)
+      return false
+      
+    return true;
+ }
+ 
+ function verifyEmail()
+ {
+   var email = document.getElementsByName("email")[0].value
+   console.log(typeof(email))
+   
+   if(email.length < 5 || email.search('@') == -1)
+      return false
+      
+    return true;
+ }
+ 
+ function verifyPhone()
+ {
+   var phone = document.getElementsByName("phone")[0].value
+   
+   if(phone.length < 10)
+      return false
+      
+   return true
+ }
+ 
+ function verifyZipCode()
+ {
+   var zipCode = document.getElementsByName("zipCode")[0].value
+   
+   if(zipCode.length < 5)
+      return false
+      
+   return true
+ }
+ 
+  function verifyState()
+ {
+   var state = document.getElementsByName("state")[0].value
+   
+   if(state.length < 2)
+      return false
+      
+   return true
+ }
+ 
+ function inputPhone(evt)
+ {
+   var phone = document.getElementsByName("phone")[0].value
+   if(phone.length == 10)
+      return false;
+      
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+      return false;
+        
+    return true;
+  }
+  
+function inputZipCode(evt)
+ {
+   var zipCode = document.getElementsByName("zipCode")[0].value
+   if(zipCode.length == 5)
+      return false;
+      
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+      return false;
+        
+    return true;
+  }
+  
+  function verifyAddress()
+  {
+    var address = document.getElementsByName("address")[0].value
+    
+    if(address.length < 5)
+      return false
+      
+    return true
+  }
+  
+  function verifyCity()
+  {
+    var city = document.getElementsByName("city")[0].value
+    
+    if(city.length < 3)
+      return false
+      
+    return true
+  }
+  
+  function verifyFormInputFields()
+  {
+     if(!verifyFullName())
+      {
+        document.getElementById("error").innerHTML = "Full Name field needs to have atleast 5 letters."
+        return false;
+      }
+      else if(!verifyEmail())
+      {
+        document.getElementById("error").innerHTML = "There is an error in email field."
+        return false;
+      }
+      else if(!verifyPhone())
+      {
+        document.getElementById("error").innerHTML = "Phone field should have 10 digits."
+        return false;
+      }
+      else if(!verifyAddress())
+      {
+        document.getElementById("error").innerHTML = "Address field should have atleast 5 letters."
+        return false;
+      }
+      else if(!verifyZipCode())
+      {
+        document.getElementById("error").innerHTML = "Zip code field should have 5 digits"
+        return false;
+      }
+      else if(!verifyCity())
+      {
+        document.getElementById("error").innerHTML = "City field should have atleast 3 letters."
+        return false;
+      }
+      else if(!verifyState())
+      {
+        document.getElementById("error").innerHTML = "State field should have 2 letters."
+        return false;
+      }
+      else
+        return true;
+  }
+  
+  
+  
+  function inputState(evt)
+  {
+    var states=["AK","AL","AR","AZ","CA","CO","CT","DE","FL","GA","HI","IA","ID","IL","IN","KS","KY","LA","MA","MD","ME","MI","MN","MO","MS","MT","NC","ND","NE","NH","NJ","NM","NV","NY","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VA","VT","WA","WI","WV","WY"]
+      
+    var state = document.getElementsByName("state")[0].value
+    if(state.length == 2)
+    {
+
+      if(states.includes(state.toUpperCase()))
+      {
+        document.getElementsByName("state")[0].value = state.toUpperCase()
+    
+        return false
+      }
+      
+      document.getElementsByName("state")[0].value = ""
+    }
+      
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if ((charCode > 64 && charCode < 91) || (charCode >96 && charCode < 123))
+      return true;
+      
+    return false
+  }
+  
+ 
+ 
 function requestCardNonce(event) {
+
+  //Don't submit form until form input fields have been filled
+  if(!verifyFormInputFields())
+  {
+    console.log("before return")
+    return;
+  }
+    
+    
+  //verifyFormInputFields();
 
   // Don't submit the form until SqPaymentForm returns with a nonce
   event.preventDefault();
@@ -45,20 +218,10 @@ var paymentForm = new SqPaymentForm({
   locationId: locationId,
   inputClass: 'sq-input',
 
-  // Customize the CSS for SqPaymentForm iframe elements
+  //Customize the CSS for SqPaymentForm iframe elements
   inputStyles: [{
-      fontSize: '.9em'
+      fontSize: '14px'
   }],
-
-  // Initialize Apple Pay placeholder ID
-  applePay: {
-    elementId: 'sq-apple-pay'
-  },
-
-  // Initialize Masterpass placeholder ID
-  masterpass: {
-    elementId: 'sq-masterpass'
-  },
 
   // Initialize the credit card placeholders
   cardNumber: {
@@ -74,41 +237,13 @@ var paymentForm = new SqPaymentForm({
     placeholder: 'MM/YY'
   },
   postalCode: {
-    elementId: 'postal-code'
+    elementId: 'postal-code',
+    placeholder: "93930"
   },
 
   // SqPaymentForm callback functions
   callbacks: {
 
-    /*
-     * callback function: methodsSupported
-     * Triggered when: the page is loaded.
-     */
-    methodsSupported: function (methods) {
-
-      var applePayBtn = document.getElementById('sq-apple-pay');
-      var applePayLabel = document.getElementById('sq-apple-pay-label');
-      var masterpassBtn = document.getElementById('sq-masterpass');
-      var masterpassLabel = document.getElementById('sq-masterpass-label');
-
-      // Only show the button if Apple Pay for Web is enabled
-      // Otherwise, display the wallet not enabled message.
-      if (methods.applePay === true) {
-        applePayBtn.style.display = 'inline-block';
-        applePayLabel.style.display = 'none' ;
-      }
-      // Only show the button if Masterpass is enabled
-      // Otherwise, display the wallet not enabled message.
-      if (methods.masterpass === true) {
-        masterpassBtn.style.display = 'inline-block';
-        masterpassLabel.style.display = 'none';
-      }
-    },
-
-    /*
-     * callback function: createPaymentRequest
-     * Triggered when: a digital wallet payment button is clicked.
-     */
     createPaymentRequest: function () {
       // The payment request below is provided as
       // guidance. You should add code to create the object
@@ -148,6 +283,7 @@ var paymentForm = new SqPaymentForm({
         // Log errors from nonce generation to the Javascript console
         console.log("Encountered errors:");
         errors.forEach(function(error) {
+          document.getElementById("error").innerHTML = error.message
           console.log('  ' + error.message);
         });
 
@@ -162,7 +298,6 @@ var paymentForm = new SqPaymentForm({
       // POST the nonce form to the payment processing page
       //document.getElementById('nonce-form').submit();
       
-      
       var payLoad = {
         "amount": totalPrice,
         "nonce":nonce
@@ -170,13 +305,16 @@ var paymentForm = new SqPaymentForm({
       
  
         $.ajax({
-              url : "processPayment.php",
+              url : "process.php",
               type: 'POST',
               data: payLoad,
               dataType: "json",
               success: function(data) {
-                console.log("success")
-                console.log(data);
+                
+                //console.log(data);
+                console.log("Success!!!" + data)
+                document.getElementById('nonce-form').submit();
+                
                 
               },
               error:function(data)
@@ -184,9 +322,10 @@ var paymentForm = new SqPaymentForm({
                 
                 //console.log(data);
                 var response = data["responseText"].substr(data["responseText"].search('{'),data["responseText"].length)
-                console.log("response text: " + response)
                 
                 response = $.parseJSON(response)
+                
+                document.getElementById("error").innerHTML = response["errors"][0]["detail"]
                 console.log(response)
              }
             

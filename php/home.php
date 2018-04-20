@@ -12,7 +12,7 @@
         $dbConn = getDatabaseConnection();
         
         $arrivals = getNewArrivals();
-        var_dump($_SESSION);
+        //var_dump($_SESSION);
 	?>
     <body>
         <div id="cotainer">
@@ -114,16 +114,16 @@
                                         <hr style='width: 90%;'>
                                         <form method='POST' action='cart.php'>
                                                 <div class='price'>$".number_format((float)$arrivals[$i]['price'],2, '.', '')."</div>
-                                                <input type='hidden' name='nameProduct' value='".$arrivals[$i]['name']."'>
+                                                <input id = 'nameProduct".$i."' type='hidden' name='nameProduct' value='".$arrivals[$i]['name']."'>
                                                 <input type='hidden' name='price' value='".$arrivals[$i]['price']."'>
                                             
                                             
                                                 <div style='margin-top: 10px;'>
                                                     <span style='font-size: 20px;'>Quantity</span>
                                                     
-                                                    <input type='button' value='-' class='qtyminus' field='quantity' />
-                                                    <input  readonly type='text' name='quantity' value='1' class='qty' />
-                                                    <input type='button' value='+' class='qtyplus' field='quantity' />
+                                                    <input type='button' value='-' class='qtyminus' field='quantity".$i."' />
+                                                    <input readonly type='text' name='quantity' value='1' class='qty' />
+                                                    <input type='button' value='+' class='qtyplus' field='quantity".$i."' />
                                                 </div>";
                                                 
                                                 
@@ -293,40 +293,120 @@
         
         
     jQuery(document).ready(function(){
-    // This button will increment the value
+        
+        // This button will increment the value
     $('.qtyplus').click(function(e){
+        
+        console.log("clicked plus button")
         // Stop acting like a button
         e.preventDefault();
         // Get the field name
         fieldName = $(this).attr('field');
-        // Get its current value
-        var currentVal = parseInt($('input[name='+fieldName+']').val());
-        // If is not undefined
-        if (!isNaN(currentVal)) {
-            // Increment
-            $('input[name='+fieldName+']').val(currentVal + 1);
-        } else {
-            // Otherwise put a 0 there
-            $('input[name='+fieldName+']').val(1);
-        }
+        
+        console.log("fieldName: " + fieldName)
+        var index = fieldName[fieldName.length - 1]
+        
+        var product_name = $("#nameProduct"+index).attr("value")
+        console.log("product_name: " + product_name)
+        $.ajax({
+            url :  "retrieveProducts.php",
+            type: 'POST',
+            data: {category: "quantity", productName: product_name},
+            dataType: "json",
+            success: function(data) {
+                console.log( data);
+                
+                var currentVal = parseFloat($('input[name='+fieldName.substr(0,fieldName.length - 1)+']').val());
+                console.log("current val: " + currentVal)
+        
+                //console.log("current val: " + currentVal);
+                // If is not undefined
+                
+                if (!isNaN(currentVal)) 
+                {
+                    
+                    currentVal++;
+                    
+                    if( currentVal > parseFloat(data["quantity"]))
+                    {
+                        console.log("currentvale > quantity")
+                        $('input[name='+fieldName.substr(0,fieldName.length - 1)+']').val(parseFloat(data["quantity"]));
+                    }   
+                    else
+                    {
+                        $('input[name='+fieldName.substr(0,fieldName.length - 1)+']').val(currentVal);
+                    }
+                }        
+                else
+                {
+                    currentVal = 1;
+                    $('input[name='+fieldName.substr(0,fieldName.length - 1)+']').val(currentVal);
+                }
+                
+                
+                
+                
+                
+            },
+              error:function()
+             {
+                console.log("error getting product quantity in cart")     
+             }
+        })
     });
-    // This button will decrement the value till 0
+        
+            // This button will decrement the value till 1
     $(".qtyminus").click(function(e) {
         // Stop acting like a button
         e.preventDefault();
         // Get the field name
         fieldName = $(this).attr('field');
-        // Get its current value
-        var currentVal = parseInt($('input[name='+fieldName+']').val());
-        // If it isn't undefined or its greater than 0
-        if (!isNaN(currentVal) && currentVal > 1) {
-            // Decrement one
-            $('input[name='+fieldName+']').val(currentVal - 1);
-        } else {
-            // Otherwise put a 0 there
-            $('input[name='+fieldName+']').val(1);
-        }
+        var index = fieldName[fieldName.length - 1]
+        
+        var product_name = $("#nameProduct"+index).attr("value")
+        
+        $.ajax({
+            url :  "retrieveProducts.php",
+            type: 'POST',
+            data: {category: "quantity", productName: product_name},
+            dataType: "json",
+            success: function(data) {
+                console.log( data);
+                
+                var currentVal = parseFloat($('input[name='+fieldName.substr(0,fieldName.length - 1)+']').val());
+        
+                //console.log("current val: " + currentVal);
+                // If is not undefined
+                
+                if (!isNaN(currentVal) && currentVal > 1) 
+                {
+                    
+                    currentVal--;
+                    
+                    if( currentVal > parseFloat(data["quantity"]))
+                    {
+                        console.log("currentvale > quantity")
+                        $('input[name='+fieldName.substr(0,fieldName.length - 1)+']').val(parseFloat(data["quantity"]));
+                    }   
+                    else
+                    {
+                        $('input[name='+fieldName.substr(0,fieldName.length - 1)+']').val(currentVal);
+                    }
+                }        
+                else
+                {
+                    currentVal = 1;
+                    $('input[name='+fieldName.substr(0,fieldName.length - 1)+']').val(currentVal);
+                }
+                
+            },
+              error:function()
+             {
+                console.log("error getting product quantity in cart")     
+             }
+        })
     });
+
 });
 
         
@@ -343,7 +423,7 @@
 		///echo"inside validate user function";
 		global $dbConn;
 		    
-		$query = "select * from Products order by category limit 4;";
+		$query = "select * from Products where quantity > 0 order by category limit 4;";
 	  
 		$statement = $dbConn->prepare($query);
 		
